@@ -1,0 +1,43 @@
+{
+  "name": "@ferryrsvp/runtime-manifest",
+  "version": "1.0.0",
+  "description": "Ferry RSVP runtime-composition manifest (rmc-toolkit) — single source of truth for the import map.",
+  "type": "module",
+  "sideEffects": false,
+  "main": "build/runtime-manifest/index.mjs",
+  "module": "build/runtime-manifest/index.mjs",
+  "types": "build/runtime-manifest/index.d.ts",
+  "files": [
+    "README.md",
+    "build/runtime-manifest"
+  ],
+  "exports": {
+    ".": {
+      "import": "./build/runtime-manifest/index.mjs",
+      "types": "./build/runtime-manifest/index.d.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "build:js": "vite build",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build": "npm run build:js && npm run build:types",
+    "test": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "dependencies": {
+    "@rmc-toolkit/core": "^0.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.4",
+    "typescript": "^5.8.3",
+    "vite": "^7.1.5",
+    "vitest": "^3.2.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/FERRY-RSVP/runtime-manifest.git"
+  },
+  "author": "Angelo",
+  "license": "ISC"
+}
