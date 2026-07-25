@@ -62,9 +62,7 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", o = "
         "web-home": t,
         "web-about": t,
         "web-support": t,
-        "web-coming-soon": t,
-        booking: `${r}/web-booking`,
-        tickets: `${r}/web-tickets`
+        "web-coming-soon": t
       }
     }
   }

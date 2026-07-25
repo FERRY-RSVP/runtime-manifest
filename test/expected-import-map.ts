@@ -1,5 +1,7 @@
 // Golden parity target: web-static/src/js/importmap.js (React 19.2.8),
-// with ?bundle=all / &bundle=all removed. 49 entries.
+// with ?bundle=all / &bundle=all removed, and the web--less booking/tickets
+// aliases dropped (loader emits @ferryrsvp/web-booking/, resolved by the
+// @ferryrsvp/ catch-all). 47 entries.
 export const expectedImportMap: Record<string, string> = {
   "@esm.sh/react": "https://esm.sh/react@19.2.8",
   "@esm.sh/zustand": "https://esm.sh/zustand?deps=react@19.2.8",
@@ -46,8 +48,6 @@ export const expectedImportMap: Record<string, string> = {
   "@ferryrsvp/web-coming-soon/": "https://assets.ferry.rsvp/web-pages/",
   "@ferryrsvp/web-auth": "https://assets.ferry.rsvp/web-auth/build/index.mjs",
   "@ferryrsvp/": "https://assets.ferry.rsvp/",
-  "@ferryrsvp/booking/": "https://assets.ferry.rsvp/web-booking/",
-  "@ferryrsvp/tickets/": "https://assets.ferry.rsvp/web-tickets/",
   "react/jsx-runtime": "https://esm.sh/react@19.2.8/jsx-runtime",
   "react/jsx-dev-runtime": "https://esm.sh/react@19.2.8/jsx-dev-runtime",
 };

@@ -52,8 +52,6 @@ export declare const manifest: {
                 "web-about": string;
                 "web-support": string;
                 "web-coming-soon": string;
-                booking: string;
-                tickets: string;
             };
         };
     };

@@ -75,8 +75,6 @@ export const manifest = defineManifest({
         "web-about": PAGES,
         "web-support": PAGES,
         "web-coming-soon": PAGES,
-        booking: `${ASSETS}/web-booking`,
-        tickets: `${ASSETS}/web-tickets`,
       },
     },
   },
