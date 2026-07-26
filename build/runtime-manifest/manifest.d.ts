@@ -1,5 +1,6 @@
 export declare const manifest: {
     namespace: string;
+    slicePrefix: string;
     assetsOrigin: string;
     exactImports: {
         "@esm.sh/react": string;

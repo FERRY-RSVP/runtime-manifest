@@ -2,6 +2,10 @@ import { defineManifest as o } from "@rmc-toolkit/core";
 import { createExternalMatcher as h, createImportMap as d } from "@rmc-toolkit/core";
 const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", i = "https://ferry.rsvp", a = `${r}/web-pages`, t = "https://assets.staging.ferry.rsvp", c = "https://staging.ferry.rsvp", n = `${t}/web-pages`, p = o({
   namespace: "@ferryrsvp",
+  // Slices are published as @ferryrsvp/web-<name>. slicePrefix lets
+  // resolveRoute map a URL segment ("/booking") to the conventional specifier
+  // (@ferryrsvp/web-booking/<entryFile>) by convention, without a route table.
+  slicePrefix: "web-",
   // production catch-all; preview overrides via environments.preview.assetsOrigin.
   assetsOrigin: r,
   // Every esm.sh entry is version-pinned (frozen 2026-07-26 from the version

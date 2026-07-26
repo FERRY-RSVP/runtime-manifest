@@ -16,6 +16,10 @@ const STAGING_PAGES = `${STAGING_ASSETS}/web-pages`;
 
 export const manifest = defineManifest({
   namespace: "@ferryrsvp",
+  // Slices are published as @ferryrsvp/web-<name>. slicePrefix lets
+  // resolveRoute map a URL segment ("/booking") to the conventional specifier
+  // (@ferryrsvp/web-booking/<entryFile>) by convention, without a route table.
+  slicePrefix: "web-",
   // production catch-all; preview overrides via environments.preview.assetsOrigin.
   assetsOrigin: ASSETS,
 
