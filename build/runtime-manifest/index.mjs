@@ -21,7 +21,7 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", i = "
     "@esm.sh/react-error-boundary": `${e}/react-error-boundary@6.1.2?deps=react@${s},react-dom@${s}`,
     "@esm.sh/react-hook-form": `${e}/react-hook-form@7.83.0?deps=react@${s}`,
     "@esm.sh/react-hook-form-persist": `${e}/react-hook-form-persist@3.0.0?deps=react@${s}`,
-    "@esm.sh/@hookform/resolvers/zod": `${e}/@hookform/resolvers@5.5.3/zod?deps=react@${s},react-hook-form@7.58.1`,
+    "@esm.sh/@hookform/resolvers/zod": `${e}/@hookform/resolvers@5.5.3/zod?deps=react@${s},react-hook-form@7.83.0`,
     "@esm.sh/@vaadin/react-components/DatePicker": `${e}/@vaadin/react-components@24.9.17/DatePicker.js?deps=react@${s}`,
     "@esm.sh/@radix-ui/themes": `${e}/@radix-ui/themes@3.3.0?deps=react@${s},react-dom@${s}/client`,
     "@esm.sh/@radix-ui/react-icons": `${e}/@radix-ui/react-icons@1.3.2?deps=react@${s}`,
