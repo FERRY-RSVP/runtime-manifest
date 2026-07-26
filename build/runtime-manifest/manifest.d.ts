@@ -36,14 +36,51 @@ export declare const manifest: {
         "@esm.sh/validator/lib/isEmail": string;
         "@esm.sh/@chenglou/pretext": string;
         "@esm.sh/@openreplay/tracker": string;
-        "@ferryrsvp/liknoss-client": string;
-        "@ferryrsvp/web-runtime": string;
-        "@ferryrsvp/web-ui": string;
-        "@ferryrsvp/web-auth": string;
-        "@ferryrsvp/language": string;
+        "@ferryrsvp/liknoss-client": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
+        "@ferryrsvp/web-runtime": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
+        "@ferryrsvp/web-ui": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
+        "@ferryrsvp/web-auth": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
+        "@ferryrsvp/language": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
     };
     environments: {
         production: {
+            sliceOrigins: {
+                "web-runtime": string;
+                "web-ui": string;
+                "web-page": string;
+                "web-home": string;
+                "web-about": string;
+                "web-support": string;
+                "web-coming-soon": string;
+            };
+        };
+        preview: {
+            assetsOrigin: string;
             sliceOrigins: {
                 "web-runtime": string;
                 "web-ui": string;

@@ -3,17 +3,25 @@ import { defineManifest } from "@rmc-toolkit/core";
 // Single source of truth for the React version — bump here to bump everywhere.
 const REACT = "19.2.8";
 const ESM = "https://esm.sh";
+
+// Production origins.
 const ASSETS = "https://assets.ferry.rsvp";
 const SITE = "https://ferry.rsvp";
 const PAGES = `${ASSETS}/web-pages`;
 
+// Preview (staging) origins.
+const STAGING_ASSETS = "https://assets.staging.ferry.rsvp";
+const STAGING_SITE = "https://staging.ferry.rsvp";
+const STAGING_PAGES = `${STAGING_ASSETS}/web-pages`;
+
 export const manifest = defineManifest({
   namespace: "@ferryrsvp",
-  // Emits the "@ferryrsvp/" -> "https://assets.ferry.rsvp/" catch-all.
+  // production catch-all; preview overrides via environments.preview.assetsOrigin.
   assetsOrigin: ASSETS,
 
-  // Faithful-first: every esm.sh + ferry entry is a verbatim exact import.
-  // externalDeps/version-pinning is deferred to step 1.5.
+  // Faithful-first: esm.sh entries are environment-independent strings; the
+  // ferry module URLs carry a `preview` variant. externalDeps/version-pinning
+  // is still deferred to step 1.5.
   exactImports: {
     // --- esm.sh: React singleton + React-dependent (pinned) ---
     "@esm.sh/react": `${ESM}/react@${REACT}`,
@@ -55,16 +63,32 @@ export const manifest = defineManifest({
     "@esm.sh/@chenglou/pretext": `${ESM}/@chenglou/pretext@0.0.3`,
     "@esm.sh/@openreplay/tracker": `${ESM}/@openreplay/tracker@latest`,
 
-    // --- ferry: exact module URLs ---
-    "@ferryrsvp/liknoss-client": `${ASSETS}/liknoss-client/index.mjs`,
-    "@ferryrsvp/web-runtime": `${ASSETS}/web-runtime/index.mjs`,
-    "@ferryrsvp/web-ui": `${ASSETS}/web-ui/index.mjs`,
-    "@ferryrsvp/web-auth": `${ASSETS}/web-auth/build/index.mjs`,
-    "@ferryrsvp/language": `${SITE}/js/language.js`,
+    // --- ferry: exact module URLs (production + preview variants) ---
+    "@ferryrsvp/liknoss-client": {
+      url: `${ASSETS}/liknoss-client/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/liknoss-client/index.mjs` },
+    },
+    "@ferryrsvp/web-runtime": {
+      url: `${ASSETS}/web-runtime/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/web-runtime/index.mjs` },
+    },
+    "@ferryrsvp/web-ui": {
+      url: `${ASSETS}/web-ui/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/web-ui/index.mjs` },
+    },
+    "@ferryrsvp/web-auth": {
+      url: `${ASSETS}/web-auth/build/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/web-auth/build/index.mjs` },
+    },
+    "@ferryrsvp/language": {
+      url: `${SITE}/js/language.js`,
+      environments: { preview: `${STAGING_SITE}/js/language.js` },
+    },
   },
 
-  // Trailing-slash prefix mappings. createImportMap emits each as
-  // "@ferryrsvp/<name>/" -> "<origin>/".
+  // Trailing-slash prefix mappings, per environment. createImportMap emits each
+  // as "@ferryrsvp/<name>/" -> "<origin>/". The "@ferryrsvp/" catch-all comes
+  // from assetsOrigin (production) / environments.preview.assetsOrigin (preview).
   environments: {
     production: {
       sliceOrigins: {
@@ -75,6 +99,18 @@ export const manifest = defineManifest({
         "web-about": PAGES,
         "web-support": PAGES,
         "web-coming-soon": PAGES,
+      },
+    },
+    preview: {
+      assetsOrigin: STAGING_ASSETS,
+      sliceOrigins: {
+        "web-runtime": `${STAGING_ASSETS}/web-runtime`,
+        "web-ui": `${STAGING_ASSETS}/web-ui`,
+        "web-page": `${STAGING_ASSETS}/web-page`,
+        "web-home": STAGING_PAGES,
+        "web-about": STAGING_PAGES,
+        "web-support": STAGING_PAGES,
+        "web-coming-soon": STAGING_PAGES,
       },
     },
   },

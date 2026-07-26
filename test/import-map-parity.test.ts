@@ -27,3 +27,32 @@ describe("runtime-manifest import-map parity", () => {
     expect(extra, `unexpected keys: ${extra.join(", ")}`).toHaveLength(0);
   });
 });
+
+describe("runtime-manifest preview (staging) import-map", () => {
+  const preview = createImportMap(manifest, { environment: "preview" }).imports;
+
+  // Preview = production with ferry origins swapped to staging; esm.sh untouched.
+  const toStaging = (url: string): string =>
+    url
+      .replaceAll("https://assets.ferry.rsvp", "https://assets.staging.ferry.rsvp")
+      .replaceAll("https://ferry.rsvp", "https://staging.ferry.rsvp");
+  const expectedPreview = Object.fromEntries(
+    Object.entries(expectedImportMap).map(([k, v]) => [k, toStaging(v)]),
+  );
+
+  it("has the same specifier keys as production", () => {
+    expect(Object.keys(preview).sort()).toEqual(
+      Object.keys(expectedImportMap).sort(),
+    );
+  });
+
+  it("swaps every ferry origin to staging and leaves esm.sh entries untouched", () => {
+    const mismatches: string[] = [];
+    for (const [specifier, url] of Object.entries(expectedPreview)) {
+      if (preview[specifier] !== url) {
+        mismatches.push(`${specifier}\n  expected: ${url}\n  actual:   ${preview[specifier]}`);
+      }
+    }
+    expect(mismatches, `\n${mismatches.join("\n")}`).toHaveLength(0);
+  });
+});
