@@ -19,11 +19,11 @@ export const manifest = defineManifest({
   // production catch-all; preview overrides via environments.preview.assetsOrigin.
   assetsOrigin: ASSETS,
 
-  // Faithful-first: esm.sh entries are environment-independent strings; the
-  // ferry module URLs carry a `preview` variant. externalDeps/version-pinning
-  // is still deferred to step 1.5.
+  // Every esm.sh entry is version-pinned (frozen 2026-07-26 from the version
+  // esm.sh served as "latest"). React and its ?deps= peers use the REACT
+  // constant; bumping any library is a deliberate edit, caught by the parity test.
   exactImports: {
-    // --- esm.sh: React singleton + React-dependent (pinned) ---
+    // --- esm.sh: React singleton + React-dependent (react peer via ?deps=) ---
     "@esm.sh/react": `${ESM}/react@${REACT}`,
     "@esm.sh/react-dom/client": `${ESM}/react-dom@${REACT}/client`,
     "@esm.sh/react-router": `${ESM}/react-router@7.8.2?deps=react@${REACT}`,
@@ -31,37 +31,35 @@ export const manifest = defineManifest({
     "@esm.sh/@tanstack/react-query": `${ESM}/@tanstack/react-query@5.96.2?deps=react@${REACT}`,
     "react/jsx-runtime": `${ESM}/react@${REACT}/jsx-runtime`,
     "react/jsx-dev-runtime": `${ESM}/react@${REACT}/jsx-dev-runtime`,
+    "@esm.sh/zustand": `${ESM}/zustand@5.0.14?deps=react@${REACT}`,
+    "@esm.sh/react-responsive": `${ESM}/react-responsive@10.0.1?deps=react@${REACT}`,
+    "@esm.sh/react-error-boundary": `${ESM}/react-error-boundary@6.1.2?deps=react@${REACT},react-dom@${REACT}`,
+    "@esm.sh/react-hook-form": `${ESM}/react-hook-form@7.83.0?deps=react@${REACT}`,
+    "@esm.sh/react-hook-form-persist": `${ESM}/react-hook-form-persist@3.0.0?deps=react@${REACT}`,
+    "@esm.sh/@hookform/resolvers/zod": `${ESM}/@hookform/resolvers@5.5.3/zod?deps=react@${REACT},react-hook-form@7.58.1`,
+    "@esm.sh/@vaadin/react-components/DatePicker": `${ESM}/@vaadin/react-components@24.9.17/DatePicker.js?deps=react@${REACT}`,
+    "@esm.sh/@radix-ui/themes": `${ESM}/@radix-ui/themes@3.3.0?deps=react@${REACT},react-dom@${REACT}/client`,
+    "@esm.sh/@radix-ui/react-icons": `${ESM}/@radix-ui/react-icons@1.3.2?deps=react@${REACT}`,
 
-    // --- esm.sh: React-dependent (unpinned) ---
-    "@esm.sh/zustand": `${ESM}/zustand?deps=react@${REACT}`,
-    "@esm.sh/react-responsive": `${ESM}/react-responsive?deps=react@${REACT}`,
-    "@esm.sh/react-error-boundary": `${ESM}/react-error-boundary?deps=react@${REACT},react-dom@${REACT}`,
-    "@esm.sh/react-hook-form": `${ESM}/react-hook-form?deps=react@${REACT}`,
-    "@esm.sh/react-hook-form-persist": `${ESM}/react-hook-form-persist?deps=react@${REACT}`,
-    "@esm.sh/@hookform/resolvers/zod": `${ESM}/@hookform/resolvers/zod?deps=react@${REACT},react-hook-form@7.58.1`,
-    "@esm.sh/@vaadin/react-components/DatePicker": `${ESM}/@vaadin/react-components/DatePicker.js?deps=react@${REACT}`,
-    "@esm.sh/@radix-ui/themes": `${ESM}/@radix-ui/themes?deps=react@${REACT},react-dom@${REACT}/client`,
-    "@esm.sh/@radix-ui/react-icons": `${ESM}/@radix-ui/react-icons?deps=react@${REACT}`,
-
-    // --- esm.sh: standalone / pinned / @latest leaf libs ---
-    "@esm.sh/luxon": `${ESM}/luxon`,
+    // --- esm.sh: standalone leaf libs (no react peer) ---
+    "@esm.sh/luxon": `${ESM}/luxon@3.7.2`,
     "@esm.sh/@tanstack/query-persist-client-core": `${ESM}/@tanstack/query-persist-client-core@5.96.2`,
     "@esm.sh/@tanstack/query-sync-storage-persister": `${ESM}/@tanstack/query-sync-storage-persister@5.96.2`,
-    "@esm.sh/prop-types": `${ESM}/prop-types`,
-    "@esm.sh/zod": `${ESM}/zod`,
-    "@esm.sh/date-fns/parse": `${ESM}/date-fns/parse`,
-    "@esm.sh/date-fns/format": `${ESM}/date-fns/format`,
-    "@esm.sh/immer": `${ESM}/immer`,
-    "@esm.sh/zustand/middleware": `${ESM}/zustand/middleware`,
-    "@esm.sh/zustand/react/shallow": `${ESM}/zustand/react/shallow`,
-    "@esm.sh/@auth0/auth0-react": `${ESM}/@auth0/auth0-react@latest`,
-    "@esm.sh/@capacitor/app": `${ESM}/@capacitor/app@latest`,
-    "@esm.sh/@capacitor/browser": `${ESM}/@capacitor/browser@latest`,
-    "@esm.sh/libphonenumber-js": `${ESM}/libphonenumber-js@latest`,
+    "@esm.sh/prop-types": `${ESM}/prop-types@15.8.1`,
+    "@esm.sh/zod": `${ESM}/zod@4.4.3`,
+    "@esm.sh/date-fns/parse": `${ESM}/date-fns@4.4.0/parse`,
+    "@esm.sh/date-fns/format": `${ESM}/date-fns@4.4.0/format`,
+    "@esm.sh/immer": `${ESM}/immer@11.1.15`,
+    "@esm.sh/zustand/middleware": `${ESM}/zustand@5.0.14/middleware`,
+    "@esm.sh/zustand/react/shallow": `${ESM}/zustand@5.0.14/react/shallow`,
+    "@esm.sh/@auth0/auth0-react": `${ESM}/@auth0/auth0-react@2.22.0`,
+    "@esm.sh/@capacitor/app": `${ESM}/@capacitor/app@8.1.1`,
+    "@esm.sh/@capacitor/browser": `${ESM}/@capacitor/browser@8.0.4`,
+    "@esm.sh/libphonenumber-js": `${ESM}/libphonenumber-js@1.13.9`,
     "@esm.sh/xstate": `${ESM}/xstate@5.28.0`,
     "@esm.sh/validator/lib/isEmail": `${ESM}/validator@13.15.35/lib/isEmail`,
     "@esm.sh/@chenglou/pretext": `${ESM}/@chenglou/pretext@0.0.3`,
-    "@esm.sh/@openreplay/tracker": `${ESM}/@openreplay/tracker@latest`,
+    "@esm.sh/@openreplay/tracker": `${ESM}/@openreplay/tracker@18.1.0`,
 
     // --- ferry: exact module URLs (production + preview variants) ---
     "@ferryrsvp/liknoss-client": {
