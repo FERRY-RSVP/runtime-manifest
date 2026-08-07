@@ -78,6 +78,10 @@ export const manifest = defineManifest({
       url: `${ASSETS}/web-ui/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-ui/index.mjs` },
     },
+    "@ferryrsvp/web-ux": {
+      url: `${ASSETS}/web-ux/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/web-ux/index.mjs` },
+    },
     "@ferryrsvp/web-auth": {
       url: `${ASSETS}/web-auth/build/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-auth/build/index.mjs` },
@@ -96,6 +100,7 @@ export const manifest = defineManifest({
       sliceOrigins: {
         "web-runtime": `${ASSETS}/web-runtime`,
         "web-ui": `${ASSETS}/web-ui`,
+        "web-ux": `${ASSETS}/web-ux`,
         "web-page": `${ASSETS}/web-page`,
         "web-home": PAGES,
         "web-about": PAGES,
@@ -108,6 +113,7 @@ export const manifest = defineManifest({
       sliceOrigins: {
         "web-runtime": `${STAGING_ASSETS}/web-runtime`,
         "web-ui": `${STAGING_ASSETS}/web-ui`,
+        "web-ux": `${STAGING_ASSETS}/web-ux`,
         "web-page": `${STAGING_ASSETS}/web-page`,
         "web-home": STAGING_PAGES,
         "web-about": STAGING_PAGES,
