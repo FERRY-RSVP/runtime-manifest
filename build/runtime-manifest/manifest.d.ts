@@ -55,6 +55,12 @@ export declare const manifest: {
                 preview: string;
             };
         };
+        "@ferryrsvp/web-ux": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
         "@ferryrsvp/web-auth": {
             url: string;
             environments: {
@@ -73,6 +79,7 @@ export declare const manifest: {
             sliceOrigins: {
                 "web-runtime": string;
                 "web-ui": string;
+                "web-ux": string;
                 "web-page": string;
                 "web-home": string;
                 "web-about": string;
@@ -85,6 +92,7 @@ export declare const manifest: {
             sliceOrigins: {
                 "web-runtime": string;
                 "web-ui": string;
+                "web-ux": string;
                 "web-page": string;
                 "web-home": string;
                 "web-about": string;

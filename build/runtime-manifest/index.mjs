@@ -1,6 +1,6 @@
-import { defineManifest as o } from "@rmc-toolkit/core";
-import { createExternalMatcher as h, createImportMap as d } from "@rmc-toolkit/core";
-const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", i = "https://ferry.rsvp", a = `${r}/web-pages`, t = "https://assets.staging.ferry.rsvp", c = "https://staging.ferry.rsvp", n = `${t}/web-pages`, p = o({
+import { defineManifest as i } from "@rmc-toolkit/core";
+import { createExternalMatcher as d, createImportMap as h } from "@rmc-toolkit/core";
+const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", o = "https://ferry.rsvp", a = `${r}/web-pages`, t = "https://assets.staging.ferry.rsvp", c = "https://staging.ferry.rsvp", n = `${t}/web-pages`, p = i({
   namespace: "@ferryrsvp",
   // Slices are published as @ferryrsvp/web-<name>. slicePrefix lets
   // resolveRoute map a URL segment ("/booking") to the conventional specifier
@@ -61,12 +61,16 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", i = "
       url: `${r}/web-ui/index.mjs`,
       environments: { preview: `${t}/web-ui/index.mjs` }
     },
+    "@ferryrsvp/web-ux": {
+      url: `${r}/web-ux/index.mjs`,
+      environments: { preview: `${t}/web-ux/index.mjs` }
+    },
     "@ferryrsvp/web-auth": {
       url: `${r}/web-auth/build/index.mjs`,
       environments: { preview: `${t}/web-auth/build/index.mjs` }
     },
     "@ferryrsvp/language": {
-      url: `${i}/js/language.js`,
+      url: `${o}/js/language.js`,
       environments: { preview: `${c}/js/language.js` }
     }
   },
@@ -78,6 +82,7 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", i = "
       sliceOrigins: {
         "web-runtime": `${r}/web-runtime`,
         "web-ui": `${r}/web-ui`,
+        "web-ux": `${r}/web-ux`,
         "web-page": `${r}/web-page`,
         "web-home": a,
         "web-about": a,
@@ -90,6 +95,7 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", i = "
       sliceOrigins: {
         "web-runtime": `${t}/web-runtime`,
         "web-ui": `${t}/web-ui`,
+        "web-ux": `${t}/web-ux`,
         "web-page": `${t}/web-page`,
         "web-home": n,
         "web-about": n,
@@ -100,7 +106,7 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", i = "
   }
 });
 export {
-  h as createExternalMatcher,
-  d as createImportMap,
+  d as createExternalMatcher,
+  h as createImportMap,
   p as manifest
 };
