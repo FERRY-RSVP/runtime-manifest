@@ -1,0 +1,31 @@
+name: Move major tag
+
+# Keeps a moving major tag (e.g. v1) pointing at the latest vX.Y.Z release so
+# consumers can pin "#v1" and track backwards-compatible releases. See
+# VERSIONING.md.
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+permissions:
+  contents: write
+
+jobs:
+  move-major-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Point vMAJOR at ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          TAG="${GITHUB_REF_NAME}"      # e.g. v1.5.0
+          MAJOR="${TAG%%.*}"            # e.g. v1
+          echo "Moving ${MAJOR} -> ${TAG}"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -f "${MAJOR}" "${TAG}"
+          git push -f origin "refs/tags/${MAJOR}"
