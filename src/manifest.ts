@@ -70,6 +70,12 @@ export const manifest = defineManifest({
       url: `${ASSETS}/liknoss-client/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/liknoss-client/index.mjs` },
     },
+    // Ferry-RSVP conventions layer (booking-intent, buildTimetableRequest) — a
+    // subpath of the same package, distinct from the raw API client above.
+    "@ferryrsvp/liknoss-client/ferryrsvp": {
+      url: `${ASSETS}/liknoss-client/ferryrsvp/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/liknoss-client/ferryrsvp/index.mjs` },
+    },
     "@ferryrsvp/web-runtime": {
       url: `${ASSETS}/web-runtime/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-runtime/index.mjs` },

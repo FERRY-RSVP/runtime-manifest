@@ -36,6 +36,7 @@ export const expectedImportMap: Record<string, string> = {
   "@esm.sh/@chenglou/pretext": "https://esm.sh/@chenglou/pretext@0.0.3",
   "@esm.sh/@openreplay/tracker": "https://esm.sh/@openreplay/tracker@18.1.0",
   "@ferryrsvp/liknoss-client": "https://assets.ferry.rsvp/liknoss-client/index.mjs",
+  "@ferryrsvp/liknoss-client/ferryrsvp": "https://assets.ferry.rsvp/liknoss-client/ferryrsvp/index.mjs",
   "@ferryrsvp/web-runtime": "https://assets.ferry.rsvp/web-runtime/index.mjs",
   "@ferryrsvp/web-runtime/": "https://assets.ferry.rsvp/web-runtime/",
   "@ferryrsvp/language": "https://ferry.rsvp/js/language.js",

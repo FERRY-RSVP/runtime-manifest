@@ -53,6 +53,12 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", o = "
       url: `${r}/liknoss-client/index.mjs`,
       environments: { preview: `${t}/liknoss-client/index.mjs` }
     },
+    // Ferry-RSVP conventions layer (booking-intent, buildTimetableRequest) — a
+    // subpath of the same package, distinct from the raw API client above.
+    "@ferryrsvp/liknoss-client/ferryrsvp": {
+      url: `${r}/liknoss-client/ferryrsvp/index.mjs`,
+      environments: { preview: `${t}/liknoss-client/ferryrsvp/index.mjs` }
+    },
     "@ferryrsvp/web-runtime": {
       url: `${r}/web-runtime/index.mjs`,
       environments: { preview: `${t}/web-runtime/index.mjs` }

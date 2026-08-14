@@ -43,6 +43,12 @@ export declare const manifest: {
                 preview: string;
             };
         };
+        "@ferryrsvp/liknoss-client/ferryrsvp": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
         "@ferryrsvp/web-runtime": {
             url: string;
             environments: {
