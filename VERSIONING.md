@@ -5,6 +5,25 @@ map. It follows **semver**, and consumers track the **moving major tag** so
 backwards-compatible releases flow automatically while breaking changes stay
 gated. See `docs/superpowers/specs/2026-08-08-manifest-versioning-strategy-design.md`.
 
+## Two kinds of value
+
+The manifest holds two kinds of value, distinguished by **when they bind**:
+
+| | Binds | Blast radius | Caught by staging? |
+|---|---|---|---|
+| **Runtime** — esm.sh entries, slice URLs | When `web-static` deploys its import map | Every slice at once, whenever it was built | **No** for shared singletons |
+| **Build-time** — `apiBaseUrls` | At each app's own build | Only apps rebuilt since | **Yes** |
+
+A shared esm.sh singleton (React and its `?deps=` peers) is what versioning
+genuinely protects: the import map serves one React to every slice at runtime,
+so a bump can pair a slice built against the old version with a map serving the
+new one. Whether that breaks depends on which slices have rebuilt since, which
+differs between staging and production — staging cannot reliably catch it.
+
+Build-time values carry no such hazard: each app's staging build exercises its
+own combination before production sees it. **Changing `apiBaseUrls` is
+therefore MINOR, never MAJOR.**
+
 ## What each bump means
 
 | Bump | When | Safe to adopt without code change? |

@@ -1,6 +1,6 @@
-import { defineManifest as i } from "@rmc-toolkit/core";
-import { createExternalMatcher as d, createImportMap as h } from "@rmc-toolkit/core";
-const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", o = "https://ferry.rsvp", a = `${r}/web-pages`, t = "https://assets.staging.ferry.rsvp", c = "https://staging.ferry.rsvp", n = `${t}/web-pages`, p = i({
+import { defineManifest as u } from "@rmc-toolkit/core";
+import { createExternalMatcher as k, createImportMap as j } from "@rmc-toolkit/core";
+const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", $ = "https://ferry.rsvp", n = `${r}/web-pages`, t = "https://assets.staging.ferry.rsvp", d = "https://staging.ferry.rsvp", i = `${t}/web-pages`, v = u({
   namespace: "@ferryrsvp",
   // Slices are published as @ferryrsvp/web-<name>. slicePrefix lets
   // resolveRoute map a URL segment ("/booking") to the conventional specifier
@@ -76,8 +76,8 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", o = "
       environments: { preview: `${t}/web-auth/build/index.mjs` }
     },
     "@ferryrsvp/language": {
-      url: `${o}/js/language.js`,
-      environments: { preview: `${c}/js/language.js` }
+      url: `${$}/js/language.js`,
+      environments: { preview: `${d}/js/language.js` }
     }
   },
   // Trailing-slash prefix mappings, per environment. createImportMap emits each
@@ -90,10 +90,10 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", o = "
         "web-ui": `${r}/web-ui`,
         "web-ux": `${r}/web-ux`,
         "web-page": `${r}/web-page`,
-        "web-home": a,
-        "web-about": a,
-        "web-support": a,
-        "web-coming-soon": a
+        "web-home": n,
+        "web-about": n,
+        "web-support": n,
+        "web-coming-soon": n
       }
     },
     preview: {
@@ -103,16 +103,45 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", o = "
         "web-ui": `${t}/web-ui`,
         "web-ux": `${t}/web-ux`,
         "web-page": `${t}/web-page`,
-        "web-home": n,
-        "web-about": n,
-        "web-support": n,
-        "web-coming-soon": n
+        "web-home": i,
+        "web-about": i,
+        "web-support": i,
+        "web-coming-soon": i
       }
     }
   }
-});
+}), o = "https://api.ferry.rsvp", p = "https://api.staging.ferry.rsvp", h = "https://ask.ferry.rsvp", b = "https://ask.staging.ferry.rsvp", l = {
+  production: {
+    booking: `${o}/app/booking`,
+    payments: `${o}/app/payments`,
+    discovery: `${o}/app/discovery`,
+    catalog: `${o}/v1`,
+    ask: h
+  },
+  preview: {
+    booking: `${p}/app/booking`,
+    payments: `${p}/app/payments`,
+    discovery: `${p}/app/discovery`,
+    catalog: `${p}/v1`,
+    ask: b
+  }
+};
+function f(a) {
+  return a.CF_PAGES_BRANCH ? a.CF_PAGES_BRANCH === "main" ? "production" : "preview" : a.GITHUB_REF_NAME && a.GITHUB_REF_NAME === "main" ? "production" : "preview";
+}
+function y(a) {
+  return Object.fromEntries(
+    Object.entries(l[a]).map(([c, m]) => [
+      `import.meta.env.VITE_API_${c.toUpperCase()}`,
+      JSON.stringify(m)
+    ])
+  );
+}
 export {
-  d as createExternalMatcher,
-  h as createImportMap,
-  p as manifest
+  l as apiBaseUrls,
+  y as apiDefines,
+  k as createExternalMatcher,
+  j as createImportMap,
+  v as manifest,
+  f as resolveEnvironment
 };
