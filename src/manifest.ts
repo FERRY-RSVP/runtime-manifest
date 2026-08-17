@@ -70,9 +70,19 @@ export const manifest = defineManifest({
       url: `${ASSETS}/liknoss-client/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/liknoss-client/index.mjs` },
     },
-    "@ferryrsvp/web-runtime": {
-      url: `${ASSETS}/web-runtime/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/web-runtime/index.mjs` },
+    // Ferry-RSVP conventions layer (booking-intent, buildTimetableRequest) — a
+    // subpath of the same package, distinct from the raw API client above.
+    "@ferryrsvp/liknoss-client/ferryrsvp": {
+      url: `${ASSETS}/liknoss-client/ferryrsvp/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/liknoss-client/ferryrsvp/index.mjs` },
+    },
+    "@ferryrsvp/localization": {
+      url: `${ASSETS}/web-localization/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/web-localization/index.mjs` },
+    },
+    "@ferryrsvp/localization/react": {
+      url: `${ASSETS}/web-localization/react.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/web-localization/react.mjs` },
     },
     "@ferryrsvp/web-ui": {
       url: `${ASSETS}/web-ui/index.mjs`,
@@ -86,10 +96,6 @@ export const manifest = defineManifest({
       url: `${ASSETS}/web-auth/build/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-auth/build/index.mjs` },
     },
-    "@ferryrsvp/language": {
-      url: `${SITE}/js/language.js`,
-      environments: { preview: `${STAGING_SITE}/js/language.js` },
-    },
   },
 
   // Trailing-slash prefix mappings, per environment. createImportMap emits each
@@ -98,7 +104,7 @@ export const manifest = defineManifest({
   environments: {
     production: {
       sliceOrigins: {
-        "web-runtime": `${ASSETS}/web-runtime`,
+        "localization": `${ASSETS}/web-localization`,
         "web-ui": `${ASSETS}/web-ui`,
         "web-ux": `${ASSETS}/web-ux`,
         "web-page": `${ASSETS}/web-page`,
@@ -111,7 +117,7 @@ export const manifest = defineManifest({
     preview: {
       assetsOrigin: STAGING_ASSETS,
       sliceOrigins: {
-        "web-runtime": `${STAGING_ASSETS}/web-runtime`,
+        "localization": `${STAGING_ASSETS}/web-localization`,
         "web-ui": `${STAGING_ASSETS}/web-ui`,
         "web-ux": `${STAGING_ASSETS}/web-ux`,
         "web-page": `${STAGING_ASSETS}/web-page`,

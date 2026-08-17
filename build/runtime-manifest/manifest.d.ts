@@ -43,7 +43,19 @@ export declare const manifest: {
                 preview: string;
             };
         };
-        "@ferryrsvp/web-runtime": {
+        "@ferryrsvp/liknoss-client/ferryrsvp": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
+        "@ferryrsvp/localization": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
+        "@ferryrsvp/localization/react": {
             url: string;
             environments: {
                 preview: string;
@@ -67,17 +79,11 @@ export declare const manifest: {
                 preview: string;
             };
         };
-        "@ferryrsvp/language": {
-            url: string;
-            environments: {
-                preview: string;
-            };
-        };
     };
     environments: {
         production: {
             sliceOrigins: {
-                "web-runtime": string;
+                localization: string;
                 "web-ui": string;
                 "web-ux": string;
                 "web-page": string;
@@ -90,7 +96,7 @@ export declare const manifest: {
         preview: {
             assetsOrigin: string;
             sliceOrigins: {
-                "web-runtime": string;
+                localization: string;
                 "web-ui": string;
                 "web-ux": string;
                 "web-page": string;
