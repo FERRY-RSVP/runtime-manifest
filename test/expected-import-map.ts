@@ -50,6 +50,8 @@ export const expectedImportMap: Record<string, string> = {
   "@ferryrsvp/web-support/": "https://assets.ferry.rsvp/web-pages/",
   "@ferryrsvp/web-coming-soon/": "https://assets.ferry.rsvp/web-pages/",
   "@ferryrsvp/web-auth": "https://assets.ferry.rsvp/web-auth/build/index.mjs",
+  "@ferryrsvp/ferry-authentication-client": "https://assets.ferry.rsvp/ferry-authentication-client/index.mjs",
+  "@ferryrsvp/ferry-authentication-react": "https://assets.ferry.rsvp/ferry-authentication-react/index.mjs",
   "@ferryrsvp/": "https://assets.ferry.rsvp/",
   "react/jsx-runtime": "https://esm.sh/react@19.2.8/jsx-runtime",
   "react/jsx-dev-runtime": "https://esm.sh/react@19.2.8/jsx-dev-runtime",
