@@ -1,6 +1,6 @@
-import { defineManifest as u } from "@rmc-toolkit/core";
-import { createExternalMatcher as k, createImportMap as j } from "@rmc-toolkit/core";
-const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", $ = "https://ferry.rsvp", n = `${r}/web-pages`, t = "https://assets.staging.ferry.rsvp", d = "https://staging.ferry.rsvp", i = `${t}/web-pages`, v = u({
+import { defineManifest as $ } from "@rmc-toolkit/core";
+import { createExternalMatcher as x, createImportMap as k } from "@rmc-toolkit/core";
+const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", i = `${r}/web-pages`, t = "https://assets.staging.ferry.rsvp", o = `${t}/web-pages`, b = $({
   namespace: "@ferryrsvp",
   // Slices are published as @ferryrsvp/web-<name>. slicePrefix lets
   // resolveRoute map a URL segment ("/booking") to the conventional specifier
@@ -59,9 +59,13 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", $ = "
       url: `${r}/liknoss-client/ferryrsvp/index.mjs`,
       environments: { preview: `${t}/liknoss-client/ferryrsvp/index.mjs` }
     },
-    "@ferryrsvp/web-runtime": {
-      url: `${r}/web-runtime/index.mjs`,
-      environments: { preview: `${t}/web-runtime/index.mjs` }
+    "@ferryrsvp/localization": {
+      url: `${r}/web-localization/index.mjs`,
+      environments: { preview: `${t}/web-localization/index.mjs` }
+    },
+    "@ferryrsvp/localization/react": {
+      url: `${r}/web-localization/react.mjs`,
+      environments: { preview: `${t}/web-localization/react.mjs` }
     },
     "@ferryrsvp/web-ui": {
       url: `${r}/web-ui/index.mjs`,
@@ -74,10 +78,6 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", $ = "
     "@ferryrsvp/web-auth": {
       url: `${r}/web-auth/build/index.mjs`,
       environments: { preview: `${t}/web-auth/build/index.mjs` }
-    },
-    "@ferryrsvp/language": {
-      url: `${$}/js/language.js`,
-      environments: { preview: `${d}/js/language.js` }
     }
   },
   // Trailing-slash prefix mappings, per environment. createImportMap emits each
@@ -86,62 +86,62 @@ const s = "19.2.8", e = "https://esm.sh", r = "https://assets.ferry.rsvp", $ = "
   environments: {
     production: {
       sliceOrigins: {
-        "web-runtime": `${r}/web-runtime`,
+        localization: `${r}/web-localization`,
         "web-ui": `${r}/web-ui`,
         "web-ux": `${r}/web-ux`,
         "web-page": `${r}/web-page`,
-        "web-home": n,
-        "web-about": n,
-        "web-support": n,
-        "web-coming-soon": n
-      }
-    },
-    preview: {
-      assetsOrigin: t,
-      sliceOrigins: {
-        "web-runtime": `${t}/web-runtime`,
-        "web-ui": `${t}/web-ui`,
-        "web-ux": `${t}/web-ux`,
-        "web-page": `${t}/web-page`,
         "web-home": i,
         "web-about": i,
         "web-support": i,
         "web-coming-soon": i
       }
+    },
+    preview: {
+      assetsOrigin: t,
+      sliceOrigins: {
+        localization: `${t}/web-localization`,
+        "web-ui": `${t}/web-ui`,
+        "web-ux": `${t}/web-ux`,
+        "web-page": `${t}/web-page`,
+        "web-home": o,
+        "web-about": o,
+        "web-support": o,
+        "web-coming-soon": o
+      }
     }
   }
-}), o = "https://api.ferry.rsvp", p = "https://api.staging.ferry.rsvp", h = "https://ask.ferry.rsvp", b = "https://ask.staging.ferry.rsvp", l = {
+}), n = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", l = "https://ask.ferry.rsvp", u = "https://ask.staging.ferry.rsvp", d = {
   production: {
-    booking: `${o}/app/booking`,
-    payments: `${o}/app/payments`,
-    discovery: `${o}/app/discovery`,
-    catalog: `${o}/v1`,
-    ask: h
+    booking: `${n}/app/booking`,
+    payments: `${n}/app/payments`,
+    discovery: `${n}/app/discovery`,
+    catalog: `${n}/v1`,
+    ask: l
   },
   preview: {
-    booking: `${p}/app/booking`,
-    payments: `${p}/app/payments`,
-    discovery: `${p}/app/discovery`,
-    catalog: `${p}/v1`,
-    ask: b
+    booking: `${c}/app/booking`,
+    payments: `${c}/app/payments`,
+    discovery: `${c}/app/discovery`,
+    catalog: `${c}/v1`,
+    ask: u
   }
 };
-function f(a) {
+function w(a) {
   return a.CF_PAGES_BRANCH ? a.CF_PAGES_BRANCH === "main" ? "production" : "preview" : a.GITHUB_REF_NAME && a.GITHUB_REF_NAME === "main" ? "production" : "preview";
 }
-function y(a) {
+function v(a) {
   return Object.fromEntries(
-    Object.entries(l[a]).map(([c, m]) => [
-      `import.meta.env.VITE_API_${c.toUpperCase()}`,
+    Object.entries(d[a]).map(([p, m]) => [
+      `import.meta.env.VITE_API_${p.toUpperCase()}`,
       JSON.stringify(m)
     ])
   );
 }
 export {
-  l as apiBaseUrls,
-  y as apiDefines,
-  k as createExternalMatcher,
-  j as createImportMap,
-  v as manifest,
-  f as resolveEnvironment
+  d as apiBaseUrls,
+  v as apiDefines,
+  x as createExternalMatcher,
+  k as createImportMap,
+  b as manifest,
+  w as resolveEnvironment
 };
