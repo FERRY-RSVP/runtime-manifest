@@ -96,6 +96,22 @@ export const manifest = defineManifest({
       url: `${ASSETS}/web-auth/build/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-auth/build/index.mjs` },
     },
+    // Passkey authentication (ferry-authentication). Added alongside
+    // @ferryrsvp/web-auth rather than repointing it: repointing an existing
+    // specifier is MAJOR and would move every slice at once, whereas additive
+    // entries let slices migrate off Auth0 individually. @ferryrsvp/web-auth
+    // is removed in a later major, once no slice imports it.
+    "@ferryrsvp/ferry-authentication-client": {
+      url: `${ASSETS}/ferry-authentication-client/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/ferry-authentication-client/index.mjs` },
+    },
+    // The React adapter externalises the client above, so both must resolve,
+    // and to one instance each: two copies of the client would mean two auth
+    // stores and divergent state across slices.
+    "@ferryrsvp/ferry-authentication-react": {
+      url: `${ASSETS}/ferry-authentication-react/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/ferry-authentication-react/index.mjs` },
+    },
   },
 
   // Trailing-slash prefix mappings, per environment. createImportMap emits each
