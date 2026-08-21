@@ -1,3 +1,7 @@
 node_modules
 package-lock.json
 *.log
+
+# self-hosted deps CDN PoC (deps/) — vendor build output and generated shims
+build/deps/
+deps/.shims/

@@ -39,3 +39,19 @@ npm run build # regenerate build/runtime-manifest
 ```
 
 Rebuild and commit `build/` whenever `src/` changes.
+
+## Self-hosted dependency CDN (investigation)
+
+`deps/` holds a working proof of concept for serving third-party deps from
+`https://deps.ferry.rsvp` instead of esm.sh: `deps/package.json` pins the
+versions, a Vite build emits esm.sh-style versioned ESM into `build/deps/`,
+and the same build generates the manifest's third-party import-map entries
+(`deps/generated/deps-imports.ts`). Not wired into the live manifest. See
+`docs/superpowers/specs/2026-08-21-self-hosted-deps-cdn-investigation.md`.
+
+```bash
+cd deps
+npm install
+npm run build     # build/deps/ + generated manifest fragment
+node verify.mjs   # export parity vs npm originals + runtime smoke tests
+```

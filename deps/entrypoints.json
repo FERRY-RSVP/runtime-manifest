@@ -1,0 +1,8 @@
+{
+  "//": "Subpath entrypoints built per package, mirroring the subpaths the manifest exposes today. \"\" is the package root. Every entry becomes <pkg>@<version>/<entry or index>.mjs under build/deps/ and one specifier in the generated import-map fragment.",
+  "react": ["", "jsx-runtime", "jsx-dev-runtime"],
+  "react-dom": ["", "client"],
+  "zustand": ["", "middleware", "react/shallow"],
+  "zod": [""],
+  "prop-types": [""]
+}

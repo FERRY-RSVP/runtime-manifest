@@ -1,0 +1,16 @@
+{
+  "name": "@ferryrsvp/runtime-manifest-deps",
+  "private": true,
+  "description": "Version source of truth for self-hosted third-party ESM dependencies. `dependencies` below is the complete list of packages built to build/deps/ and served from https://deps.ferry.rsvp. Subpath entrypoints per package live in entrypoints.json.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "prop-types": "15.8.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "4.4.3",
+    "zustand": "5.0.14"
+  }
+}
