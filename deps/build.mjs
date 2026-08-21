@@ -96,6 +96,55 @@ function makeExternal(selfPkg) {
   return (id) => others.some((p) => id === p || id.startsWith(`${p}/`));
 }
 
+/**
+ * Shared-internals audit. Anything NOT in `dependencies` gets bundled into
+ * its consumers; a package reachable from two or more CDN entries is
+ * therefore duplicated — one private copy per consumer. For stateless code
+ * that is just wasted bytes, but for packages carrying identity or state
+ * (classes checked with instanceof, #private fields, module-level
+ * singletons like @tanstack/query-core's focusManager) duplication breaks
+ * at runtime while npm and esm.sh would both have deduped. Walk the full
+ * lockfile graph and warn so promotion to `dependencies` (= external +
+ * own CDN entry, deduped by the import map) is a conscious decision.
+ */
+async function auditSharedInternals() {
+  const lock = JSON.parse(
+    await readFile(path.join(here, "package-lock.json"), "utf8"),
+  );
+  const depsOf = (name) => {
+    const entry = lock.packages?.[`node_modules/${name}`];
+    return Object.keys({
+      ...entry?.dependencies,
+      ...entry?.peerDependencies,
+    });
+  };
+  const reachedBy = new Map(); // internal pkg -> Set<CDN entry>
+  for (const root of packages) {
+    const seen = new Set();
+    const stack = [root];
+    while (stack.length) {
+      for (const dep of depsOf(stack.pop())) {
+        if (!seen.has(dep)) {
+          seen.add(dep);
+          stack.push(dep);
+          if (!reachedBy.has(dep)) reachedBy.set(dep, new Set());
+          reachedBy.get(dep).add(root);
+        }
+      }
+    }
+  }
+  for (const [dep, roots] of reachedBy) {
+    if (roots.size >= 2 && !packages.includes(dep)) {
+      console.warn(
+        `  warn shared internal "${dep}" is bundled separately into ${[...roots].join(
+          ", ",
+        )} — promote it to deps/package.json if it carries classes or module state`,
+      );
+    }
+  }
+}
+await auditSharedInternals();
+
 await rm(outRoot, { recursive: true, force: true });
 await rm(path.join(here, ".shims"), { recursive: true, force: true });
 await mkdir(outRoot, { recursive: true });

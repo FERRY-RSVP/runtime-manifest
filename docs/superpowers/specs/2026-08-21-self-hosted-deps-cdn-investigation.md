@@ -161,22 +161,77 @@ references it** (same discipline as deploying a slice before registering it).
 
 ## Migration under VERSIONING.md
 
-Two distinct classes, exactly matching the policy's runtime-value analysis:
+### Why partial migration of the React cluster means two Reacts
 
-1. **Standalone leaf libs** (luxon, zod, immer, xstate, libphonenumber-js,
-   date-fns, validator, …): no shared runtime state. Add bare-name
-   specifiers pointing at deps.ferry.rsvp as **MINOR additive** entries;
-   slices migrate imports individually; retire the `@esm.sh/*` alias in a
-   later major. Zero-risk, incremental, and a low-stakes production soak
-   for the CDN itself. **Start here.**
-2. **The React singleton cluster** (react, react-dom, and every `?deps=`
-   peer: react-router, @tanstack/react-query, zustand, react-hook-form,
-   @radix-ui/*, …): must cut over **atomically in one MAJOR**. Partial
-   migration means two Reacts: esm.sh modules import React via absolute
-   paths on the esm.sh origin (`/react@19.2.8/es2022/react.mjs`), which the
-   import map cannot intercept, while self-hosted modules import bare
-   `react` from deps.ferry.rsvp — hooks break at runtime. The repointed
-   `@esm.sh/*` aliases + generated bare entries land in the same release.
+An import map only intercepts what a module *asks for by name*. There are
+two different kinds of "ask" in play:
+
+- **Bare specifier** — `import { useState } from "react"`. The browser has
+  no way to resolve this on its own; it consults the import map. This is
+  what our self-hosted builds emit, so the map controls where React comes
+  from.
+- **URL path** — `import … from "/react@19.2.8/es2022/react.mjs"`. This is
+  what esm.sh's files contain internally (the public URL
+  `https://esm.sh/react-router@…?deps=react@19.2.8` is a one-line stub
+  that re-exports from a build file, and that build file imports React by
+  root-relative path). The browser resolves it against the importing
+  module's own URL — i.e. against **esm.sh's origin** — and never consults
+  the import map at all. Remapping it would require enumerating esm.sh's
+  private, build-hashed internal file layout in the map, which is not a
+  real option.
+
+Now walk a partial migration. Suppose the manifest repoints `react` and
+`@esm.sh/react` to deps.ferry.rsvp but leaves `@esm.sh/react-router` on
+esm.sh:
+
+```
+slice ── "@esm.sh/react" ──▶ import map ──▶ deps.ferry.rsvp/react@19.2.8/index.mjs   = React A
+slice ── "@esm.sh/react-router" ──▶ import map ──▶ esm.sh/react-router@7.8.2?deps=…
+              └─▶ internally: import "/react@19.2.8/es2022/react.mjs"
+                  resolves on esm.sh's origin, bypassing the map           = React B
+```
+
+Same version, two module instances. React's hooks work through a
+module-level "current dispatcher" singleton inside the react instance:
+react-dom (instance A) sets the dispatcher on A while rendering, but
+react-router's `useContext` reads the dispatcher on B — which is unset.
+Result: "Invalid hook call" / null-context crashes at runtime, with
+everything loading and type-checking fine.
+
+Today the singleton invariant is enforced by esm.sh's `?deps=` threading:
+every React-dependent URL converges on the same
+`/react@19.2.8/es2022/react.mjs` file, so one origin serves one instance.
+After full migration the invariant is enforced by the single bare `react`
+entry in the import map. **During a mix, both regimes are live and resolve
+to different origins** — that is the two-React state. So react, react-dom,
+and every entry carrying `?deps=react` (react-router, react-router-dom,
+@tanstack/react-query, zustand, react-responsive, react-error-boundary,
+react-hook-form, react-hook-form-persist, @hookform/resolvers,
+@vaadin/react-components, @radix-ui/themes, @radix-ui/react-icons) must
+repoint in the **same import-map release** — which is a MAJOR under the
+policy regardless, since it repoints existing specifiers.
+
+### Why leaf libs are exempt, and migrate additively
+
+A leaf lib (luxon, zod, immer, xstate, libphonenumber-js, date-fns,
+validator, …) has no peer relationship: nothing else in the import map
+imports it, and its objects don't cross between differently-sourced module
+instances. If slice A temporarily loads zod from deps.ferry.rsvp while
+slice B still loads it from esm.sh, the page carries two copies of zod —
+wasted bytes, but nothing breaks, because a zod schema is created and
+consumed inside one slice's module graph.
+
+That tolerance for duplication is what unlocks the additive path (the same
+pattern `@ferryrsvp/ferry-authentication-*` used):
+
+1. **MINOR**: add the bare-name specifier (`"zod" → deps.ferry.rsvp/…`) as
+   a *new* entry; `@esm.sh/zod` stays untouched.
+2. Slices switch `@esm.sh/zod` → `zod` individually, as they rebuild.
+3. A later MAJOR removes the unused `@esm.sh/zod` alias.
+
+One lib at a time, each step reversible, and the CDN gets a production
+soak with trivial blast radius before the React cluster ever moves.
+**Start here.**
 
 ## Open items and risks (beyond the PoC's 5 packages)
 
@@ -185,14 +240,48 @@ Two distinct classes, exactly matching the policy's runtime-value analysis:
   (esm.sh has the same wrinkle — CSS is already handled out-of-band today;
   verify how web-static loads it before cutover).
 - **Shared internal deps must be promoted to first-class entries.**
-  `@tanstack/react-query` and `@tanstack/query-persist-client-core` both
-  depend on `@tanstack/query-core`; unless query-core is added to
-  `deps/package.json` (becoming an external + its own CDN entry), each
-  bundles a private copy — code duplication and possible `instanceof`
-  breakage. Same likely for `use-sync-external-store`. Rule: any package
-  reachable from two CDN entries that carries classes or module state gets
-  its own entry. (`scheduler` inside react-dom is fine bundled — single
-  consumer.)
+  The build bundles everything *except* the packages listed in
+  `deps/package.json` (those become bare-specifier externals). A package
+  that two CDN entries depend on internally therefore gets bundled twice —
+  once into each — unless it is promoted onto the list.
+
+  Worked example: `@tanstack/react-query` is React bindings around
+  `@tanstack/query-core`, where `QueryClient`, the caches, and the
+  module-level `focusManager`/`onlineManager` singletons actually live.
+  `@tanstack/query-persist-client-core` also operates on query-core's
+  `QueryClient`. The three resolution regimes compare like this:
+
+  - **npm** dedupes: both packages get the one copy in `node_modules` —
+    same classes, same singletons.
+  - **esm.sh** dedupes implicitly: both packages' files import the same
+    absolute URL (`/@tanstack/query-core@5.96.2/…`), and the browser's
+    module cache makes one instance of it.
+  - **Our build, naively**: query-core is not in `deps/package.json`, so
+    react-query's bundle inlines private copy 1 and persist-client-core's
+    bundle inlines private copy 2. The app then creates a `QueryClient`
+    from copy 1 and hands it to `persistQueryClient` compiled against
+    copy 2: `instanceof` checks fail, `#private` fields (per class
+    *declaration*, not per class name) throw, and copy 2's
+    `focusManager`/`onlineManager` singletons never see the events copy 1
+    is wiring up. Plus query-core ships twice.
+
+  Fix: add `@tanstack/query-core` to `deps/package.json`. It then becomes
+  its own CDN entry *and* an external everywhere else, so both dependents
+  emit bare `import … from "@tanstack/query-core"` and the import map
+  makes it a singleton again — restoring exactly what npm and esm.sh give.
+  No slice ever imports it directly; it exists purely so the import map
+  can dedupe it.
+
+  Rule: an internal dep bundled into a *single* CDN entry is fine
+  (`scheduler` inside react-dom). One reachable from **two or more** CDN
+  entries must be promoted if it carries identity or state — classes,
+  module-level singletons, registries, context objects
+  (`@tanstack/query-core`, `use-sync-external-store`, likely several
+  `@vaadin/*` internals). `deps/build.mjs` now audits this mechanically:
+  it walks the lockfile's dependency graph and warns for every package
+  reachable from ≥2 CDN entries that is not itself on the list. (The PoC's
+  five packages share nothing, so it is currently silent; adding the
+  TanStack trio will trip it.)
 - **Heavyweight/exotic packages**: `@vaadin/react-components` (web
   components, large internal graph), `@openreplay/tracker` (may spawn
   workers), `@capacitor/*` (runtime plugin registry). Each needs the same
