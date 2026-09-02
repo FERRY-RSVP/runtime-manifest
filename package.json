@@ -1,7 +1,7 @@
 {
   "name": "@ferryrsvp/runtime-manifest",
-  "version": "2.0.1",
-  "description": "Ferry RSVP runtime-composition manifest (rmc-toolkit) — single source of truth for the import map.",
+  "version": "2.1.0",
+  "description": "Ferry RSVP runtime-composition manifest (rmc-toolkit) \u2014 single source of truth for the import map.",
   "type": "module",
   "sideEffects": false,
   "main": "build/runtime-manifest/index.mjs",
