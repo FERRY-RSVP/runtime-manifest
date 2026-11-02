@@ -112,6 +112,18 @@ export const manifest = defineManifest({
       url: `${ASSETS}/ferry-authentication-react/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/ferry-authentication-react/index.mjs` },
     },
+    // Consent domain (ferry-consent), additive like the auth pair above. The
+    // React adapter externalises the client, so both must resolve to one
+    // instance each: two clients would mean two consent stores diverging
+    // across slices.
+    "@ferryrsvp/ferry-consent-client": {
+      url: `${ASSETS}/ferry-consent-client/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/ferry-consent-client/index.mjs` },
+    },
+    "@ferryrsvp/ferry-consent-react": {
+      url: `${ASSETS}/ferry-consent-react/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/ferry-consent-react/index.mjs` },
+    },
   },
 
   // Trailing-slash prefix mappings, per environment. createImportMap emits each

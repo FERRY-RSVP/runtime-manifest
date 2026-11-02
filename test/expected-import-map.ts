@@ -1,4 +1,4 @@
-// Golden parity target for the PRODUCTION import map (49 entries). Derived
+// Golden parity target for the PRODUCTION import map (54 entries). Derived
 // from the original web-static importmap.js (bundle=all removed; web--less
 // booking/tickets aliases dropped), then every esm.sh entry version-pinned
 // on 2026-07-26 to the version esm.sh served as "latest".
@@ -52,6 +52,8 @@ export const expectedImportMap: Record<string, string> = {
   "@ferryrsvp/web-auth": "https://assets.ferry.rsvp/web-auth/build/index.mjs",
   "@ferryrsvp/ferry-authentication-client": "https://assets.ferry.rsvp/ferry-authentication-client/index.mjs",
   "@ferryrsvp/ferry-authentication-react": "https://assets.ferry.rsvp/ferry-authentication-react/index.mjs",
+  "@ferryrsvp/ferry-consent-client": "https://assets.ferry.rsvp/ferry-consent-client/index.mjs",
+  "@ferryrsvp/ferry-consent-react": "https://assets.ferry.rsvp/ferry-consent-react/index.mjs",
   "@ferryrsvp/": "https://assets.ferry.rsvp/",
   "react/jsx-runtime": "https://esm.sh/react@19.2.8/jsx-runtime",
   "react/jsx-dev-runtime": "https://esm.sh/react@19.2.8/jsx-dev-runtime",

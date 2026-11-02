@@ -91,6 +91,18 @@ export declare const manifest: {
                 preview: string;
             };
         };
+        "@ferryrsvp/ferry-consent-client": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
+        "@ferryrsvp/ferry-consent-react": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
     };
     environments: {
         production: {
