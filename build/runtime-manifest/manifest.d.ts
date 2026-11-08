@@ -61,12 +61,6 @@ export declare const manifest: {
                 preview: string;
             };
         };
-        "@ferryrsvp/web-ui": {
-            url: string;
-            environments: {
-                preview: string;
-            };
-        };
         "@ferryrsvp/web-ux": {
             url: string;
             environments: {
@@ -108,7 +102,6 @@ export declare const manifest: {
         production: {
             sliceOrigins: {
                 localization: string;
-                "web-ui": string;
                 "web-ux": string;
                 "web-page": string;
                 "web-home": string;
@@ -121,7 +114,6 @@ export declare const manifest: {
             assetsOrigin: string;
             sliceOrigins: {
                 localization: string;
-                "web-ui": string;
                 "web-ux": string;
                 "web-page": string;
                 "web-home": string;

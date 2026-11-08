@@ -1,5 +1,5 @@
 import { defineManifest as $ } from "@rmc-toolkit/core";
-import { createExternalMatcher as x, createImportMap as j } from "@rmc-toolkit/core";
+import { createExternalMatcher as x, createImportMap as k } from "@rmc-toolkit/core";
 const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `${s}/web-pages`, t = "https://assets.staging.ferry.rsvp", i = `${t}/web-pages`, v = $({
   namespace: "@ferryrsvp",
   // Slices are published as @ferryrsvp/web-<name>. slicePrefix lets
@@ -67,10 +67,6 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `
       url: `${s}/web-localization/react.mjs`,
       environments: { preview: `${t}/web-localization/react.mjs` }
     },
-    "@ferryrsvp/web-ui": {
-      url: `${s}/web-ui/index.mjs`,
-      environments: { preview: `${t}/web-ui/index.mjs` }
-    },
     "@ferryrsvp/web-ux": {
       url: `${s}/web-ux/index.mjs`,
       environments: { preview: `${t}/web-ux/index.mjs` }
@@ -115,7 +111,6 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `
     production: {
       sliceOrigins: {
         localization: `${s}/web-localization`,
-        "web-ui": `${s}/web-ui`,
         "web-ux": `${s}/web-ux`,
         "web-page": `${s}/web-page`,
         "web-home": n,
@@ -128,7 +123,6 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `
       assetsOrigin: t,
       sliceOrigins: {
         localization: `${t}/web-localization`,
-        "web-ui": `${t}/web-ui`,
         "web-ux": `${t}/web-ux`,
         "web-page": `${t}/web-page`,
         "web-home": i,
@@ -138,7 +132,7 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `
       }
     }
   }
-}), o = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", l = "https://ask.ferry.rsvp", u = "https://ask.staging.ferry.rsvp", d = {
+}), o = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", l = "https://ask.ferry.rsvp", d = "https://ask.staging.ferry.rsvp", u = {
   production: {
     booking: `${o}/app/booking`,
     payments: `${o}/app/payments`,
@@ -151,25 +145,25 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `
     payments: `${c}/app/payments`,
     discovery: `${c}/app/discovery`,
     catalog: `${c}/v1`,
-    ask: u
+    ask: d
   }
 };
-function w(a) {
+function f(a) {
   return a.CF_PAGES_BRANCH ? a.CF_PAGES_BRANCH === "main" ? "production" : "preview" : a.GITHUB_REF_NAME && a.GITHUB_REF_NAME === "main" ? "production" : "preview";
 }
-function f(a) {
+function y(a) {
   return Object.fromEntries(
-    Object.entries(d[a]).map(([p, m]) => [
+    Object.entries(u[a]).map(([p, m]) => [
       `import.meta.env.VITE_API_${p.toUpperCase()}`,
       JSON.stringify(m)
     ])
   );
 }
 export {
-  d as apiBaseUrls,
-  f as apiDefines,
+  u as apiBaseUrls,
+  y as apiDefines,
   x as createExternalMatcher,
-  j as createImportMap,
+  k as createImportMap,
   v as manifest,
-  w as resolveEnvironment
+  f as resolveEnvironment
 };
