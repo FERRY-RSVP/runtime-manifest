@@ -84,10 +84,6 @@ export const manifest = defineManifest({
       url: `${ASSETS}/web-localization/react.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-localization/react.mjs` },
     },
-    "@ferryrsvp/web-ui": {
-      url: `${ASSETS}/web-ui/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/web-ui/index.mjs` },
-    },
     "@ferryrsvp/web-ux": {
       url: `${ASSETS}/web-ux/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-ux/index.mjs` },
@@ -121,7 +117,6 @@ export const manifest = defineManifest({
     production: {
       sliceOrigins: {
         "localization": `${ASSETS}/web-localization`,
-        "web-ui": `${ASSETS}/web-ui`,
         "web-ux": `${ASSETS}/web-ux`,
         "web-page": `${ASSETS}/web-page`,
         "web-home": PAGES,
@@ -134,7 +129,6 @@ export const manifest = defineManifest({
       assetsOrigin: STAGING_ASSETS,
       sliceOrigins: {
         "localization": `${STAGING_ASSETS}/web-localization`,
-        "web-ui": `${STAGING_ASSETS}/web-ui`,
         "web-ux": `${STAGING_ASSETS}/web-ux`,
         "web-page": `${STAGING_ASSETS}/web-page`,
         "web-home": STAGING_PAGES,

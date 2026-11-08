@@ -39,8 +39,6 @@ export const expectedImportMap: Record<string, string> = {
   "@ferryrsvp/liknoss-client/ferryrsvp": "https://assets.ferry.rsvp/liknoss-client/ferryrsvp/index.mjs",
   "@ferryrsvp/localization": "https://assets.ferry.rsvp/web-localization/index.mjs",
   "@ferryrsvp/localization/react": "https://assets.ferry.rsvp/web-localization/react.mjs",
-  "@ferryrsvp/web-ui": "https://assets.ferry.rsvp/web-ui/index.mjs",
-  "@ferryrsvp/web-ui/": "https://assets.ferry.rsvp/web-ui/",
   "@ferryrsvp/web-ux": "https://assets.ferry.rsvp/web-ux/index.mjs",
   "@ferryrsvp/web-ux/": "https://assets.ferry.rsvp/web-ux/",
   "@ferryrsvp/localization/": "https://assets.ferry.rsvp/web-localization/",
