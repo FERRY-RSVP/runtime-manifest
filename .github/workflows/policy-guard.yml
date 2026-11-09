@@ -1,0 +1,17 @@
+name: Policy Guard
+
+# Architecture policy guard (report mode). Judges every package.json against the
+# ferryrsvp.policy it declares. Report mode annotates only and never blocks.
+# See FERRY-RSVP/ci-workflows policy-guard/ for the policy set.
+on:
+  pull_request:
+    branches: [staging, main]
+
+permissions:
+  contents: read
+
+jobs:
+  policy-guard:
+    uses: FERRY-RSVP/ci-workflows/.github/workflows/policy-guard.yml@v1
+    with:
+      mode: report
