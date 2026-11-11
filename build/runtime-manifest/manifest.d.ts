@@ -79,12 +79,6 @@ export declare const manifest: {
                 preview: string;
             };
         };
-        "@ferryrsvp/web-auth": {
-            url: string;
-            environments: {
-                preview: string;
-            };
-        };
         "@ferryrsvp/ferry-authentication-client": {
             url: string;
             environments: {

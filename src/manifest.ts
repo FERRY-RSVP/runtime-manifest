@@ -101,15 +101,9 @@ export const manifest = defineManifest({
       url: `${ASSETS}/web-ux/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-ux/index.mjs` },
     },
-    "@ferryrsvp/web-auth": {
-      url: `${ASSETS}/web-auth/build/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/web-auth/build/index.mjs` },
-    },
-    // Passkey authentication (ferry-authentication). Added alongside
-    // @ferryrsvp/web-auth rather than repointing it: repointing an existing
-    // specifier is MAJOR and would move every slice at once, whereas additive
-    // entries let slices migrate off Auth0 individually. @ferryrsvp/web-auth
-    // is removed in a later major, once no slice imports it.
+    // Passkey authentication (ferry-authentication). Replaces the former
+    // @ferryrsvp/web-auth Auth0 wrapper, removed in v3.0.0 once no slice
+    // imported it (its repo was deleted).
     "@ferryrsvp/ferry-authentication-client": {
       url: `${ASSETS}/ferry-authentication-client/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/ferry-authentication-client/index.mjs` },

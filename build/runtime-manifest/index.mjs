@@ -84,15 +84,9 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
       url: `${s}/web-ux/index.mjs`,
       environments: { preview: `${t}/web-ux/index.mjs` }
     },
-    "@ferryrsvp/web-auth": {
-      url: `${s}/web-auth/build/index.mjs`,
-      environments: { preview: `${t}/web-auth/build/index.mjs` }
-    },
-    // Passkey authentication (ferry-authentication). Added alongside
-    // @ferryrsvp/web-auth rather than repointing it: repointing an existing
-    // specifier is MAJOR and would move every slice at once, whereas additive
-    // entries let slices migrate off Auth0 individually. @ferryrsvp/web-auth
-    // is removed in a later major, once no slice imports it.
+    // Passkey authentication (ferry-authentication). Replaces the former
+    // @ferryrsvp/web-auth Auth0 wrapper, removed in v3.0.0 once no slice
+    // imported it (its repo was deleted).
     "@ferryrsvp/ferry-authentication-client": {
       url: `${s}/ferry-authentication-client/index.mjs`,
       environments: { preview: `${t}/ferry-authentication-client/index.mjs` }
@@ -161,10 +155,10 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     ask: d
   }
 };
-function b(a) {
+function y(a) {
   return a.CF_PAGES_BRANCH ? a.CF_PAGES_BRANCH === "main" ? "production" : "preview" : a.GITHUB_REF_NAME && a.GITHUB_REF_NAME === "main" ? "production" : "preview";
 }
-function y(a) {
+function f(a) {
   return Object.fromEntries(
     Object.entries(u[a]).map(([p, m]) => [
       `import.meta.env.VITE_API_${p.toUpperCase()}`,
@@ -174,9 +168,9 @@ function y(a) {
 }
 export {
   u as apiBaseUrls,
-  y as apiDefines,
+  f as apiDefines,
   x as createExternalMatcher,
   j as createImportMap,
   h as manifest,
-  b as resolveEnvironment
+  y as resolveEnvironment
 };
