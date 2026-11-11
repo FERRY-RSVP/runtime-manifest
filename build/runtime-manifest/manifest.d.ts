@@ -61,19 +61,19 @@ export declare const manifest: {
                 preview: string;
             };
         };
-        "@ferryrsvp/web-ui": {
+        "@ferryrsvp/web-availability": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
+        "@ferryrsvp/web-availability/react": {
             url: string;
             environments: {
                 preview: string;
             };
         };
         "@ferryrsvp/web-ux": {
-            url: string;
-            environments: {
-                preview: string;
-            };
-        };
-        "@ferryrsvp/web-auth": {
             url: string;
             environments: {
                 preview: string;
@@ -91,12 +91,23 @@ export declare const manifest: {
                 preview: string;
             };
         };
+        "@ferryrsvp/ferry-consent-client": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
+        "@ferryrsvp/ferry-consent-react": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
     };
     environments: {
         production: {
             sliceOrigins: {
                 localization: string;
-                "web-ui": string;
                 "web-ux": string;
                 "web-page": string;
                 "web-home": string;
@@ -109,7 +120,6 @@ export declare const manifest: {
             assetsOrigin: string;
             sliceOrigins: {
                 localization: string;
-                "web-ui": string;
                 "web-ux": string;
                 "web-page": string;
                 "web-home": string;

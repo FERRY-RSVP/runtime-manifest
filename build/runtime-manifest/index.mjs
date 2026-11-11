@@ -1,6 +1,6 @@
-import { defineManifest as $ } from "@rmc-toolkit/core";
-import { createExternalMatcher as x, createImportMap as k } from "@rmc-toolkit/core";
-const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `${s}/web-pages`, t = "https://assets.staging.ferry.rsvp", n = `${t}/web-pages`, v = $({
+import { defineManifest as l } from "@rmc-toolkit/core";
+import { createExternalMatcher as x, createImportMap as j } from "@rmc-toolkit/core";
+const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `${s}/web-pages`, t = "https://assets.staging.ferry.rsvp", n = `${t}/web-pages`, h = l({
   namespace: "@ferryrsvp",
   // Slices are published as @ferryrsvp/web-<name>. slicePrefix lets
   // resolveRoute map a URL segment ("/booking") to the conventional specifier
@@ -67,23 +67,26 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
       url: `${s}/web-localization/react.mjs`,
       environments: { preview: `${t}/web-localization/react.mjs` }
     },
-    "@ferryrsvp/web-ui": {
-      url: `${s}/web-ui/index.mjs`,
-      environments: { preview: `${t}/web-ui/index.mjs` }
+    // Route availability (web-availability), a leaf runtime module. Additive and
+    // safe: nothing imports it yet, so it resolves only once a consumer (web-trips,
+    // in Plan 2) opts in. The `react` entry externalises the core, so both must
+    // resolve. Goes live when web-availability is deployed to R2 and web-static
+    // regenerates the import map.
+    "@ferryrsvp/web-availability": {
+      url: `${s}/web-availability/index.mjs`,
+      environments: { preview: `${t}/web-availability/index.mjs` }
+    },
+    "@ferryrsvp/web-availability/react": {
+      url: `${s}/web-availability/react.mjs`,
+      environments: { preview: `${t}/web-availability/react.mjs` }
     },
     "@ferryrsvp/web-ux": {
       url: `${s}/web-ux/index.mjs`,
       environments: { preview: `${t}/web-ux/index.mjs` }
     },
-    "@ferryrsvp/web-auth": {
-      url: `${s}/web-auth/build/index.mjs`,
-      environments: { preview: `${t}/web-auth/build/index.mjs` }
-    },
-    // Passkey authentication (ferry-authentication). Added alongside
-    // @ferryrsvp/web-auth rather than repointing it: repointing an existing
-    // specifier is MAJOR and would move every slice at once, whereas additive
-    // entries let slices migrate off Auth0 individually. @ferryrsvp/web-auth
-    // is removed in a later major, once no slice imports it.
+    // Passkey authentication (ferry-authentication). Replaces the former
+    // @ferryrsvp/web-auth Auth0 wrapper, removed in v3.0.0 once no slice
+    // imported it (its repo was deleted).
     "@ferryrsvp/ferry-authentication-client": {
       url: `${s}/ferry-authentication-client/index.mjs`,
       environments: { preview: `${t}/ferry-authentication-client/index.mjs` }
@@ -94,6 +97,18 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     "@ferryrsvp/ferry-authentication-react": {
       url: `${s}/ferry-authentication-react/index.mjs`,
       environments: { preview: `${t}/ferry-authentication-react/index.mjs` }
+    },
+    // Consent domain (ferry-consent), additive like the auth pair above. The
+    // React adapter externalises the client, so both must resolve to one
+    // instance each: two clients would mean two consent stores diverging
+    // across slices.
+    "@ferryrsvp/ferry-consent-client": {
+      url: `${s}/ferry-consent-client/index.mjs`,
+      environments: { preview: `${t}/ferry-consent-client/index.mjs` }
+    },
+    "@ferryrsvp/ferry-consent-react": {
+      url: `${s}/ferry-consent-react/index.mjs`,
+      environments: { preview: `${t}/ferry-consent-react/index.mjs` }
     }
   },
   // Trailing-slash prefix mappings, per environment. createImportMap emits each
@@ -103,7 +118,6 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     production: {
       sliceOrigins: {
         localization: `${s}/web-localization`,
-        "web-ui": `${s}/web-ui`,
         "web-ux": `${s}/web-ux`,
         "web-page": `${s}/web-page`,
         "web-home": i,
@@ -116,7 +130,6 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
       assetsOrigin: t,
       sliceOrigins: {
         localization: `${t}/web-localization`,
-        "web-ui": `${t}/web-ui`,
         "web-ux": `${t}/web-ux`,
         "web-page": `${t}/web-page`,
         "web-home": n,
@@ -126,38 +139,38 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
       }
     }
   }
-}), o = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", u = "https://ask.ferry.rsvp", l = "https://ask.staging.ferry.rsvp", d = {
+}), o = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", $ = "https://ask.ferry.rsvp", d = "https://ask.staging.ferry.rsvp", u = {
   production: {
     booking: `${o}/app/booking`,
     payments: `${o}/app/payments`,
     discovery: `${o}/app/discovery`,
     catalog: `${o}/v1`,
-    ask: u
+    ask: $
   },
   preview: {
     booking: `${c}/app/booking`,
     payments: `${c}/app/payments`,
     discovery: `${c}/app/discovery`,
     catalog: `${c}/v1`,
-    ask: l
+    ask: d
   }
 };
-function b(a) {
+function y(a) {
   return a.CF_PAGES_BRANCH ? a.CF_PAGES_BRANCH === "main" ? "production" : "preview" : a.GITHUB_REF_NAME && a.GITHUB_REF_NAME === "main" ? "production" : "preview";
 }
-function w(a) {
+function f(a) {
   return Object.fromEntries(
-    Object.entries(d[a]).map(([p, m]) => [
+    Object.entries(u[a]).map(([p, m]) => [
       `import.meta.env.VITE_API_${p.toUpperCase()}`,
       JSON.stringify(m)
     ])
   );
 }
 export {
-  d as apiBaseUrls,
-  w as apiDefines,
+  u as apiBaseUrls,
+  f as apiDefines,
   x as createExternalMatcher,
-  k as createImportMap,
-  v as manifest,
-  b as resolveEnvironment
+  j as createImportMap,
+  h as manifest,
+  y as resolveEnvironment
 };

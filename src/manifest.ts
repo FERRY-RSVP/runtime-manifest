@@ -74,7 +74,9 @@ export const manifest = defineManifest({
     // subpath of the same package, distinct from the raw API client above.
     "@ferryrsvp/liknoss-client/ferryrsvp": {
       url: `${ASSETS}/liknoss-client/ferryrsvp/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/liknoss-client/ferryrsvp/index.mjs` },
+      environments: {
+        preview: `${STAGING_ASSETS}/liknoss-client/ferryrsvp/index.mjs`,
+      },
     },
     "@ferryrsvp/localization": {
       url: `${ASSETS}/web-localization/index.mjs`,
@@ -84,29 +86,56 @@ export const manifest = defineManifest({
       url: `${ASSETS}/web-localization/react.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-localization/react.mjs` },
     },
+    // Route availability (web-availability), a leaf runtime module. Additive and
+    // safe: nothing imports it yet, so it resolves only once a consumer (web-trips,
+    // in Plan 2) opts in. The `react` entry externalises the core, so both must
+    // resolve. Goes live when web-availability is deployed to R2 and web-static
+    // regenerates the import map.
+    "@ferryrsvp/web-availability": {
+      url: `${ASSETS}/web-availability/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/web-availability/index.mjs` },
+    },
+    "@ferryrsvp/web-availability/react": {
+      url: `${ASSETS}/web-availability/react.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/web-availability/react.mjs` },
+    },
     "@ferryrsvp/web-ux": {
       url: `${ASSETS}/web-ux/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-ux/index.mjs` },
     },
-    "@ferryrsvp/web-auth": {
-      url: `${ASSETS}/web-auth/build/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/web-auth/build/index.mjs` },
-    },
-    // Passkey authentication (ferry-authentication). Added alongside
-    // @ferryrsvp/web-auth rather than repointing it: repointing an existing
-    // specifier is MAJOR and would move every slice at once, whereas additive
-    // entries let slices migrate off Auth0 individually. @ferryrsvp/web-auth
-    // is removed in a later major, once no slice imports it.
+    // Passkey authentication (ferry-authentication). Replaces the former
+    // @ferryrsvp/web-auth Auth0 wrapper, removed in v3.0.0 once no slice
+    // imported it (its repo was deleted).
     "@ferryrsvp/ferry-authentication-client": {
       url: `${ASSETS}/ferry-authentication-client/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/ferry-authentication-client/index.mjs` },
+      environments: {
+        preview: `${STAGING_ASSETS}/ferry-authentication-client/index.mjs`,
+      },
     },
     // The React adapter externalises the client above, so both must resolve,
     // and to one instance each: two copies of the client would mean two auth
     // stores and divergent state across slices.
     "@ferryrsvp/ferry-authentication-react": {
       url: `${ASSETS}/ferry-authentication-react/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/ferry-authentication-react/index.mjs` },
+      environments: {
+        preview: `${STAGING_ASSETS}/ferry-authentication-react/index.mjs`,
+      },
+    },
+    // Consent domain (ferry-consent), additive like the auth pair above. The
+    // React adapter externalises the client, so both must resolve to one
+    // instance each: two clients would mean two consent stores diverging
+    // across slices.
+    "@ferryrsvp/ferry-consent-client": {
+      url: `${ASSETS}/ferry-consent-client/index.mjs`,
+      environments: {
+        preview: `${STAGING_ASSETS}/ferry-consent-client/index.mjs`,
+      },
+    },
+    "@ferryrsvp/ferry-consent-react": {
+      url: `${ASSETS}/ferry-consent-react/index.mjs`,
+      environments: {
+        preview: `${STAGING_ASSETS}/ferry-consent-react/index.mjs`,
+      },
     },
   },
 
@@ -116,7 +145,7 @@ export const manifest = defineManifest({
   environments: {
     production: {
       sliceOrigins: {
-        "localization": `${ASSETS}/web-localization`,
+        localization: `${ASSETS}/web-localization`,
         "web-ux": `${ASSETS}/web-ux`,
         "web-page": `${ASSETS}/web-page`,
         "web-home": PAGES,
@@ -128,7 +157,7 @@ export const manifest = defineManifest({
     preview: {
       assetsOrigin: STAGING_ASSETS,
       sliceOrigins: {
-        "localization": `${STAGING_ASSETS}/web-localization`,
+        localization: `${STAGING_ASSETS}/web-localization`,
         "web-ux": `${STAGING_ASSETS}/web-ux`,
         "web-page": `${STAGING_ASSETS}/web-page`,
         "web-home": STAGING_PAGES,
