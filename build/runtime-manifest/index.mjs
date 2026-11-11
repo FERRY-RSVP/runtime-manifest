@@ -1,6 +1,6 @@
-import { defineManifest as $ } from "@rmc-toolkit/core";
-import { createExternalMatcher as x, createImportMap as k } from "@rmc-toolkit/core";
-const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `${s}/web-pages`, t = "https://assets.staging.ferry.rsvp", i = `${t}/web-pages`, v = $({
+import { defineManifest as l } from "@rmc-toolkit/core";
+import { createExternalMatcher as x, createImportMap as j } from "@rmc-toolkit/core";
+const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `${s}/web-pages`, t = "https://assets.staging.ferry.rsvp", n = `${t}/web-pages`, h = l({
   namespace: "@ferryrsvp",
   // Slices are published as @ferryrsvp/web-<name>. slicePrefix lets
   // resolveRoute map a URL segment ("/booking") to the conventional specifier
@@ -67,6 +67,19 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `
       url: `${s}/web-localization/react.mjs`,
       environments: { preview: `${t}/web-localization/react.mjs` }
     },
+    // Route availability (web-availability), a leaf runtime module. Additive and
+    // safe: nothing imports it yet, so it resolves only once a consumer (web-trips,
+    // in Plan 2) opts in. The `react` entry externalises the core, so both must
+    // resolve. Goes live when web-availability is deployed to R2 and web-static
+    // regenerates the import map.
+    "@ferryrsvp/web-availability": {
+      url: `${s}/web-availability/index.mjs`,
+      environments: { preview: `${t}/web-availability/index.mjs` }
+    },
+    "@ferryrsvp/web-availability/react": {
+      url: `${s}/web-availability/react.mjs`,
+      environments: { preview: `${t}/web-availability/react.mjs` }
+    },
     "@ferryrsvp/web-ux": {
       url: `${s}/web-ux/index.mjs`,
       environments: { preview: `${t}/web-ux/index.mjs` }
@@ -113,10 +126,10 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `
         localization: `${s}/web-localization`,
         "web-ux": `${s}/web-ux`,
         "web-page": `${s}/web-page`,
-        "web-home": n,
-        "web-about": n,
-        "web-support": n,
-        "web-coming-soon": n
+        "web-home": i,
+        "web-about": i,
+        "web-support": i,
+        "web-coming-soon": i
       }
     },
     preview: {
@@ -125,20 +138,20 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `
         localization: `${t}/web-localization`,
         "web-ux": `${t}/web-ux`,
         "web-page": `${t}/web-page`,
-        "web-home": i,
-        "web-about": i,
-        "web-support": i,
-        "web-coming-soon": i
+        "web-home": n,
+        "web-about": n,
+        "web-support": n,
+        "web-coming-soon": n
       }
     }
   }
-}), o = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", l = "https://ask.ferry.rsvp", d = "https://ask.staging.ferry.rsvp", u = {
+}), o = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", $ = "https://ask.ferry.rsvp", d = "https://ask.staging.ferry.rsvp", u = {
   production: {
     booking: `${o}/app/booking`,
     payments: `${o}/app/payments`,
     discovery: `${o}/app/discovery`,
     catalog: `${o}/v1`,
-    ask: l
+    ask: $
   },
   preview: {
     booking: `${c}/app/booking`,
@@ -148,7 +161,7 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", n = `
     ask: d
   }
 };
-function f(a) {
+function b(a) {
   return a.CF_PAGES_BRANCH ? a.CF_PAGES_BRANCH === "main" ? "production" : "preview" : a.GITHUB_REF_NAME && a.GITHUB_REF_NAME === "main" ? "production" : "preview";
 }
 function y(a) {
@@ -163,7 +176,7 @@ export {
   u as apiBaseUrls,
   y as apiDefines,
   x as createExternalMatcher,
-  k as createImportMap,
-  v as manifest,
-  f as resolveEnvironment
+  j as createImportMap,
+  h as manifest,
+  b as resolveEnvironment
 };

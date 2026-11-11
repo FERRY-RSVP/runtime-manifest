@@ -84,6 +84,19 @@ export const manifest = defineManifest({
       url: `${ASSETS}/web-localization/react.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-localization/react.mjs` },
     },
+    // Route availability (web-availability), a leaf runtime module. Additive and
+    // safe: nothing imports it yet, so it resolves only once a consumer (web-trips,
+    // in Plan 2) opts in. The `react` entry externalises the core, so both must
+    // resolve. Goes live when web-availability is deployed to R2 and web-static
+    // regenerates the import map.
+    "@ferryrsvp/web-availability": {
+      url: `${ASSETS}/web-availability/index.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/web-availability/index.mjs` },
+    },
+    "@ferryrsvp/web-availability/react": {
+      url: `${ASSETS}/web-availability/react.mjs`,
+      environments: { preview: `${STAGING_ASSETS}/web-availability/react.mjs` },
+    },
     "@ferryrsvp/web-ux": {
       url: `${ASSETS}/web-ux/index.mjs`,
       environments: { preview: `${STAGING_ASSETS}/web-ux/index.mjs` },

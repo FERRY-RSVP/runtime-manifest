@@ -61,6 +61,18 @@ export declare const manifest: {
                 preview: string;
             };
         };
+        "@ferryrsvp/web-availability": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
+        "@ferryrsvp/web-availability/react": {
+            url: string;
+            environments: {
+                preview: string;
+            };
+        };
         "@ferryrsvp/web-ux": {
             url: string;
             environments: {
