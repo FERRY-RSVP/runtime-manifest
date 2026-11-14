@@ -26,10 +26,11 @@
     "build:types": "tsc -p tsconfig.build.json",
     "build": "npm run build:js && npm run build:types",
     "test": "vitest run",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch",
+    "validate": "vitest run test/manifest-validation.test.ts"
   },
   "dependencies": {
-    "@rmc-toolkit/core": "^0.5.0"
+    "@rmc-toolkit/core": "^0.5.2"
   },
   "devDependencies": {
     "@types/node": "^24.0.4",
