@@ -1,0 +1,28 @@
+{
+  "ci": {
+    "workflowRef": "FERRY-RSVP/ci-workflows/.github/workflows/policy-guard.yml@v1"
+  },
+  "curated": {
+    "purpose": "Runtime-composition manifest (rmc-toolkit); single source of truth for the import map.",
+    "status": "live",
+    "units": {
+      "@ferryrsvp/runtime-manifest": {
+        "type": "library"
+      }
+    },
+    "reviewed": false
+  },
+  "repo": "runtime-manifest",
+  "units": [
+    {
+      "consumes": {
+        "http": [],
+        "importMap": [],
+        "npm": []
+      },
+      "dir": ".",
+      "id": "@ferryrsvp/runtime-manifest",
+      "type": "library"
+    }
+  ]
+}
