@@ -25,10 +25,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        # package-lock.json is gitignored in this repo, so `npm ci` (which
+        # requires a lockfile) and setup-node's `cache: npm` (which keys on
+        # one) would both fail here.
+        run: npm install
 
       - name: Typecheck
         run: npm run typecheck

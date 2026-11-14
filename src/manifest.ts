@@ -74,7 +74,9 @@ export const manifest = defineManifest({
     // subpath of the same package, distinct from the raw API client above.
     "@ferryrsvp/liknoss-client/ferryrsvp": {
       url: `${ASSETS}/liknoss-client/ferryrsvp/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/liknoss-client/ferryrsvp/index.mjs` },
+      environments: {
+        preview: `${STAGING_ASSETS}/liknoss-client/ferryrsvp/index.mjs`,
+      },
     },
     "@ferryrsvp/localization": {
       url: `${ASSETS}/web-localization/index.mjs`,
@@ -106,14 +108,18 @@ export const manifest = defineManifest({
     // imported it (its repo was deleted).
     "@ferryrsvp/ferry-authentication-client": {
       url: `${ASSETS}/ferry-authentication-client/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/ferry-authentication-client/index.mjs` },
+      environments: {
+        preview: `${STAGING_ASSETS}/ferry-authentication-client/index.mjs`,
+      },
     },
     // The React adapter externalises the client above, so both must resolve,
     // and to one instance each: two copies of the client would mean two auth
     // stores and divergent state across slices.
     "@ferryrsvp/ferry-authentication-react": {
       url: `${ASSETS}/ferry-authentication-react/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/ferry-authentication-react/index.mjs` },
+      environments: {
+        preview: `${STAGING_ASSETS}/ferry-authentication-react/index.mjs`,
+      },
     },
     // Consent domain (ferry-consent), additive like the auth pair above. The
     // React adapter externalises the client, so both must resolve to one
@@ -121,11 +127,15 @@ export const manifest = defineManifest({
     // across slices.
     "@ferryrsvp/ferry-consent-client": {
       url: `${ASSETS}/ferry-consent-client/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/ferry-consent-client/index.mjs` },
+      environments: {
+        preview: `${STAGING_ASSETS}/ferry-consent-client/index.mjs`,
+      },
     },
     "@ferryrsvp/ferry-consent-react": {
       url: `${ASSETS}/ferry-consent-react/index.mjs`,
-      environments: { preview: `${STAGING_ASSETS}/ferry-consent-react/index.mjs` },
+      environments: {
+        preview: `${STAGING_ASSETS}/ferry-consent-react/index.mjs`,
+      },
     },
   },
 
@@ -135,7 +145,7 @@ export const manifest = defineManifest({
   environments: {
     production: {
       sliceOrigins: {
-        "localization": `${ASSETS}/web-localization`,
+        localization: `${ASSETS}/web-localization`,
         "web-ux": `${ASSETS}/web-ux`,
         "web-page": `${ASSETS}/web-page`,
         "web-home": PAGES,
@@ -147,7 +157,7 @@ export const manifest = defineManifest({
     preview: {
       assetsOrigin: STAGING_ASSETS,
       sliceOrigins: {
-        "localization": `${STAGING_ASSETS}/web-localization`,
+        localization: `${STAGING_ASSETS}/web-localization`,
         "web-ux": `${STAGING_ASSETS}/web-ux`,
         "web-page": `${STAGING_ASSETS}/web-page`,
         "web-home": STAGING_PAGES,

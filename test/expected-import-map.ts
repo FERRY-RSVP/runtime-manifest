@@ -8,39 +8,59 @@ export const expectedImportMap: Record<string, string> = {
   "@esm.sh/luxon": "https://esm.sh/luxon@3.7.2",
   "@esm.sh/react-dom/client": "https://esm.sh/react-dom@19.2.8/client",
   "@esm.sh/react-router": "https://esm.sh/react-router@7.8.2?deps=react@19.2.8",
-  "@esm.sh/react-router-dom": "https://esm.sh/react-router-dom@7.8.2?deps=react@19.2.8,react-dom@19.2.8",
-  "@esm.sh/@tanstack/react-query": "https://esm.sh/@tanstack/react-query@5.96.2?deps=react@19.2.8",
-  "@esm.sh/@tanstack/query-persist-client-core": "https://esm.sh/@tanstack/query-persist-client-core@5.96.2",
-  "@esm.sh/@tanstack/query-sync-storage-persister": "https://esm.sh/@tanstack/query-sync-storage-persister@5.96.2",
-  "@esm.sh/react-responsive": "https://esm.sh/react-responsive@10.0.1?deps=react@19.2.8",
-  "@esm.sh/react-error-boundary": "https://esm.sh/react-error-boundary@6.1.2?deps=react@19.2.8,react-dom@19.2.8",
-  "@esm.sh/react-hook-form": "https://esm.sh/react-hook-form@7.83.0?deps=react@19.2.8",
-  "@esm.sh/react-hook-form-persist": "https://esm.sh/react-hook-form-persist@3.0.0?deps=react@19.2.8",
+  "@esm.sh/react-router-dom":
+    "https://esm.sh/react-router-dom@7.8.2?deps=react@19.2.8,react-dom@19.2.8",
+  "@esm.sh/@tanstack/react-query":
+    "https://esm.sh/@tanstack/react-query@5.96.2?deps=react@19.2.8",
+  "@esm.sh/@tanstack/query-persist-client-core":
+    "https://esm.sh/@tanstack/query-persist-client-core@5.96.2",
+  "@esm.sh/@tanstack/query-sync-storage-persister":
+    "https://esm.sh/@tanstack/query-sync-storage-persister@5.96.2",
+  "@esm.sh/react-responsive":
+    "https://esm.sh/react-responsive@10.0.1?deps=react@19.2.8",
+  "@esm.sh/react-error-boundary":
+    "https://esm.sh/react-error-boundary@6.1.2?deps=react@19.2.8,react-dom@19.2.8",
+  "@esm.sh/react-hook-form":
+    "https://esm.sh/react-hook-form@7.83.0?deps=react@19.2.8",
+  "@esm.sh/react-hook-form-persist":
+    "https://esm.sh/react-hook-form-persist@3.0.0?deps=react@19.2.8",
   "@esm.sh/prop-types": "https://esm.sh/prop-types@15.8.1",
-  "@esm.sh/@hookform/resolvers/zod": "https://esm.sh/@hookform/resolvers@5.5.3/zod?deps=react@19.2.8,react-hook-form@7.83.0",
+  "@esm.sh/@hookform/resolvers/zod":
+    "https://esm.sh/@hookform/resolvers@5.5.3/zod?deps=react@19.2.8,react-hook-form@7.83.0",
   "@esm.sh/zod": "https://esm.sh/zod@4.4.3",
-  "@esm.sh/@vaadin/react-components/DatePicker": "https://esm.sh/@vaadin/react-components@24.9.17/DatePicker.js?deps=react@19.2.8",
+  "@esm.sh/@vaadin/react-components/DatePicker":
+    "https://esm.sh/@vaadin/react-components@24.9.17/DatePicker.js?deps=react@19.2.8",
   "@esm.sh/date-fns/parse": "https://esm.sh/date-fns@4.4.0/parse",
   "@esm.sh/date-fns/format": "https://esm.sh/date-fns@4.4.0/format",
   "@esm.sh/immer": "https://esm.sh/immer@11.1.15",
   "@esm.sh/zustand/middleware": "https://esm.sh/zustand@5.0.14/middleware",
-  "@esm.sh/zustand/react/shallow": "https://esm.sh/zustand@5.0.14/react/shallow",
+  "@esm.sh/zustand/react/shallow":
+    "https://esm.sh/zustand@5.0.14/react/shallow",
   "@esm.sh/@auth0/auth0-react": "https://esm.sh/@auth0/auth0-react@2.22.0",
   "@esm.sh/@capacitor/app": "https://esm.sh/@capacitor/app@8.1.1",
   "@esm.sh/@capacitor/browser": "https://esm.sh/@capacitor/browser@8.0.4",
-  "@esm.sh/@radix-ui/themes": "https://esm.sh/@radix-ui/themes@3.3.0?deps=react@19.2.8,react-dom@19.2.8/client",
-  "@esm.sh/@radix-ui/react-icons": "https://esm.sh/@radix-ui/react-icons@1.3.2?deps=react@19.2.8",
+  "@esm.sh/@radix-ui/themes":
+    "https://esm.sh/@radix-ui/themes@3.3.0?deps=react@19.2.8,react-dom@19.2.8/client",
+  "@esm.sh/@radix-ui/react-icons":
+    "https://esm.sh/@radix-ui/react-icons@1.3.2?deps=react@19.2.8",
   "@esm.sh/libphonenumber-js": "https://esm.sh/libphonenumber-js@1.13.9",
   "@esm.sh/xstate": "https://esm.sh/xstate@5.28.0",
-  "@esm.sh/validator/lib/isEmail": "https://esm.sh/validator@13.15.35/lib/isEmail",
+  "@esm.sh/validator/lib/isEmail":
+    "https://esm.sh/validator@13.15.35/lib/isEmail",
   "@esm.sh/@chenglou/pretext": "https://esm.sh/@chenglou/pretext@0.0.3",
   "@esm.sh/@openreplay/tracker": "https://esm.sh/@openreplay/tracker@18.1.0",
-  "@ferryrsvp/liknoss-client": "https://assets.ferry.rsvp/liknoss-client/index.mjs",
-  "@ferryrsvp/liknoss-client/ferryrsvp": "https://assets.ferry.rsvp/liknoss-client/ferryrsvp/index.mjs",
-  "@ferryrsvp/localization": "https://assets.ferry.rsvp/web-localization/index.mjs",
-  "@ferryrsvp/localization/react": "https://assets.ferry.rsvp/web-localization/react.mjs",
-  "@ferryrsvp/web-availability": "https://assets.ferry.rsvp/web-availability/index.mjs",
-  "@ferryrsvp/web-availability/react": "https://assets.ferry.rsvp/web-availability/react.mjs",
+  "@ferryrsvp/liknoss-client":
+    "https://assets.ferry.rsvp/liknoss-client/index.mjs",
+  "@ferryrsvp/liknoss-client/ferryrsvp":
+    "https://assets.ferry.rsvp/liknoss-client/ferryrsvp/index.mjs",
+  "@ferryrsvp/localization":
+    "https://assets.ferry.rsvp/web-localization/index.mjs",
+  "@ferryrsvp/localization/react":
+    "https://assets.ferry.rsvp/web-localization/react.mjs",
+  "@ferryrsvp/web-availability":
+    "https://assets.ferry.rsvp/web-availability/index.mjs",
+  "@ferryrsvp/web-availability/react":
+    "https://assets.ferry.rsvp/web-availability/react.mjs",
   "@ferryrsvp/web-ux": "https://assets.ferry.rsvp/web-ux/index.mjs",
   "@ferryrsvp/web-ux/": "https://assets.ferry.rsvp/web-ux/",
   "@ferryrsvp/localization/": "https://assets.ferry.rsvp/web-localization/",
@@ -49,10 +69,14 @@ export const expectedImportMap: Record<string, string> = {
   "@ferryrsvp/web-about/": "https://assets.ferry.rsvp/web-pages/",
   "@ferryrsvp/web-support/": "https://assets.ferry.rsvp/web-pages/",
   "@ferryrsvp/web-coming-soon/": "https://assets.ferry.rsvp/web-pages/",
-  "@ferryrsvp/ferry-authentication-client": "https://assets.ferry.rsvp/ferry-authentication-client/index.mjs",
-  "@ferryrsvp/ferry-authentication-react": "https://assets.ferry.rsvp/ferry-authentication-react/index.mjs",
-  "@ferryrsvp/ferry-consent-client": "https://assets.ferry.rsvp/ferry-consent-client/index.mjs",
-  "@ferryrsvp/ferry-consent-react": "https://assets.ferry.rsvp/ferry-consent-react/index.mjs",
+  "@ferryrsvp/ferry-authentication-client":
+    "https://assets.ferry.rsvp/ferry-authentication-client/index.mjs",
+  "@ferryrsvp/ferry-authentication-react":
+    "https://assets.ferry.rsvp/ferry-authentication-react/index.mjs",
+  "@ferryrsvp/ferry-consent-client":
+    "https://assets.ferry.rsvp/ferry-consent-client/index.mjs",
+  "@ferryrsvp/ferry-consent-react":
+    "https://assets.ferry.rsvp/ferry-consent-react/index.mjs",
   "@ferryrsvp/": "https://assets.ferry.rsvp/",
   "react/jsx-runtime": "https://esm.sh/react@19.2.8/jsx-runtime",
   "react/jsx-dev-runtime": "https://esm.sh/react@19.2.8/jsx-dev-runtime",
