@@ -41,11 +41,7 @@ jobs:
       - name: Build
         run: npm run build
 
-  review:
-    permissions:
-      contents: read
-      pull-requests: read
-      issues: read
-      id-token: write
-    uses: FERRY-RSVP/ci-workflows/.github/workflows/code-review.yml@v1
-    secrets: inherit
+  # No review job here: this repo is PUBLIC and ci-workflows is private.
+  # A public repository cannot call a private repository's reusable
+  # workflows; the former call made the whole workflow file invalid at
+  # startup (no jobs, no `check` context), blocking every PR.
