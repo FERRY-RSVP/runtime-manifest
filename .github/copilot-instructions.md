@@ -81,3 +81,4 @@ Current architecture facts live in the `agent-docs` repository:
 | Which worker serves this path? | `docs/api-topology.md` |
 | What must I not break? | `docs/invariants.md` |
 | Does my change touch personal data / the LIKNOSS DPA? | `docs/data-protection.md` |
+| How does CSS/theming get injected? | `docs/styling.md` |
