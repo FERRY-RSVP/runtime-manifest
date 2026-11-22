@@ -26,7 +26,6 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     "@esm.sh/react-hook-form": `${e}/react-hook-form@7.83.0?deps=react@${r}`,
     "@esm.sh/react-hook-form-persist": `${e}/react-hook-form-persist@3.0.0?deps=react@${r}`,
     "@esm.sh/@hookform/resolvers/zod": `${e}/@hookform/resolvers@5.5.3/zod?deps=react@${r},react-hook-form@7.83.0`,
-    "@esm.sh/@vaadin/react-components/DatePicker": `${e}/@vaadin/react-components@24.9.17/DatePicker.js?deps=react@${r}`,
     "@esm.sh/@radix-ui/themes": `${e}/@radix-ui/themes@3.3.0?deps=react@${r},react-dom@${r}/client`,
     "@esm.sh/@radix-ui/react-icons": `${e}/@radix-ui/react-icons@1.3.2?deps=react@${r}`,
     // --- esm.sh: standalone leaf libs (no react peer) ---
@@ -57,7 +56,9 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     // subpath of the same package, distinct from the raw API client above.
     "@ferryrsvp/liknoss-client/ferryrsvp": {
       url: `${s}/liknoss-client/ferryrsvp/index.mjs`,
-      environments: { preview: `${t}/liknoss-client/ferryrsvp/index.mjs` }
+      environments: {
+        preview: `${t}/liknoss-client/ferryrsvp/index.mjs`
+      }
     },
     "@ferryrsvp/localization": {
       url: `${s}/web-localization/index.mjs`,
@@ -89,14 +90,18 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     // imported it (its repo was deleted).
     "@ferryrsvp/ferry-authentication-client": {
       url: `${s}/ferry-authentication-client/index.mjs`,
-      environments: { preview: `${t}/ferry-authentication-client/index.mjs` }
+      environments: {
+        preview: `${t}/ferry-authentication-client/index.mjs`
+      }
     },
     // The React adapter externalises the client above, so both must resolve,
     // and to one instance each: two copies of the client would mean two auth
     // stores and divergent state across slices.
     "@ferryrsvp/ferry-authentication-react": {
       url: `${s}/ferry-authentication-react/index.mjs`,
-      environments: { preview: `${t}/ferry-authentication-react/index.mjs` }
+      environments: {
+        preview: `${t}/ferry-authentication-react/index.mjs`
+      }
     },
     // Consent domain (ferry-consent), additive like the auth pair above. The
     // React adapter externalises the client, so both must resolve to one
@@ -104,11 +109,15 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     // across slices.
     "@ferryrsvp/ferry-consent-client": {
       url: `${s}/ferry-consent-client/index.mjs`,
-      environments: { preview: `${t}/ferry-consent-client/index.mjs` }
+      environments: {
+        preview: `${t}/ferry-consent-client/index.mjs`
+      }
     },
     "@ferryrsvp/ferry-consent-react": {
       url: `${s}/ferry-consent-react/index.mjs`,
-      environments: { preview: `${t}/ferry-consent-react/index.mjs` }
+      environments: {
+        preview: `${t}/ferry-consent-react/index.mjs`
+      }
     }
   },
   // Trailing-slash prefix mappings, per environment. createImportMap emits each
@@ -139,7 +148,7 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
       }
     }
   }
-}), o = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", $ = "https://ask.ferry.rsvp", d = "https://ask.staging.ferry.rsvp", u = {
+}), o = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", $ = "https://ask.ferry.rsvp", u = "https://ask.staging.ferry.rsvp", d = {
   production: {
     booking: `${o}/app/booking`,
     payments: `${o}/app/payments`,
@@ -152,7 +161,7 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     payments: `${c}/app/payments`,
     discovery: `${c}/app/discovery`,
     catalog: `${c}/v1`,
-    ask: d
+    ask: u
   }
 };
 function y(a) {
@@ -160,14 +169,14 @@ function y(a) {
 }
 function f(a) {
   return Object.fromEntries(
-    Object.entries(u[a]).map(([p, m]) => [
+    Object.entries(d[a]).map(([p, m]) => [
       `import.meta.env.VITE_API_${p.toUpperCase()}`,
       JSON.stringify(m)
     ])
   );
 }
 export {
-  u as apiBaseUrls,
+  d as apiBaseUrls,
   f as apiDefines,
   x as createExternalMatcher,
   j as createImportMap,
