@@ -28,8 +28,6 @@ export const expectedImportMap: Record<string, string> = {
   "@esm.sh/@hookform/resolvers/zod":
     "https://esm.sh/@hookform/resolvers@5.5.3/zod?deps=react@19.2.8,react-hook-form@7.83.0",
   "@esm.sh/zod": "https://esm.sh/zod@4.4.3",
-  "@esm.sh/@vaadin/react-components/DatePicker":
-    "https://esm.sh/@vaadin/react-components@24.9.17/DatePicker.js?deps=react@19.2.8",
   "@esm.sh/date-fns/parse": "https://esm.sh/date-fns@4.4.0/parse",
   "@esm.sh/date-fns/format": "https://esm.sh/date-fns@4.4.0/format",
   "@esm.sh/immer": "https://esm.sh/immer@11.1.15",

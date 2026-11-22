@@ -16,7 +16,6 @@ export declare const manifest: {
         "@esm.sh/react-hook-form": string;
         "@esm.sh/react-hook-form-persist": string;
         "@esm.sh/@hookform/resolvers/zod": string;
-        "@esm.sh/@vaadin/react-components/DatePicker": string;
         "@esm.sh/@radix-ui/themes": string;
         "@esm.sh/@radix-ui/react-icons": string;
         "@esm.sh/luxon": string;
