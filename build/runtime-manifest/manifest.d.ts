@@ -18,6 +18,7 @@ export declare const manifest: {
         "@esm.sh/@hookform/resolvers/zod": string;
         "@esm.sh/@radix-ui/themes": string;
         "@esm.sh/@radix-ui/react-icons": string;
+        "@esm.sh/@xstate/react": string;
         "@esm.sh/luxon": string;
         "@esm.sh/@tanstack/query-persist-client-core": string;
         "@esm.sh/@tanstack/query-sync-storage-persister": string;

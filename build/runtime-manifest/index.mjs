@@ -28,6 +28,11 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     "@esm.sh/@hookform/resolvers/zod": `${e}/@hookform/resolvers@5.5.3/zod?deps=react@${r},react-hook-form@7.83.0`,
     "@esm.sh/@radix-ui/themes": `${e}/@radix-ui/themes@3.3.0?deps=react@${r},react-dom@${r}/client`,
     "@esm.sh/@radix-ui/react-icons": `${e}/@radix-ui/react-icons@1.3.2?deps=react@${r}`,
+    // React bindings for xstate. `deps` pins BOTH react and xstate: without the
+    // xstate pin esm.sh resolves its own copy, and two actor runtimes in one page
+    // means two machines and divergent state -- the same hazard the React
+    // singleton rule exists for. Keep this version in step with @esm.sh/xstate.
+    "@esm.sh/@xstate/react": `${e}/@xstate/react@6.1.0?deps=react@${r},xstate@5.33.4`,
     // --- esm.sh: standalone leaf libs (no react peer) ---
     "@esm.sh/luxon": `${e}/luxon@3.7.2`,
     "@esm.sh/@tanstack/query-persist-client-core": `${e}/@tanstack/query-persist-client-core@5.96.2`,
@@ -43,7 +48,7 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     "@esm.sh/@capacitor/app": `${e}/@capacitor/app@8.1.1`,
     "@esm.sh/@capacitor/browser": `${e}/@capacitor/browser@8.0.4`,
     "@esm.sh/libphonenumber-js": `${e}/libphonenumber-js@1.13.9`,
-    "@esm.sh/xstate": `${e}/xstate@5.28.0`,
+    "@esm.sh/xstate": `${e}/xstate@5.33.4`,
     "@esm.sh/validator/lib/isEmail": `${e}/validator@13.15.35/lib/isEmail`,
     "@esm.sh/@chenglou/pretext": `${e}/@chenglou/pretext@0.0.3`,
     "@esm.sh/@openreplay/tracker": `${e}/@openreplay/tracker@18.1.0`,
@@ -148,7 +153,7 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
       }
     }
   }
-}), o = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", $ = "https://ask.ferry.rsvp", u = "https://ask.staging.ferry.rsvp", d = {
+}), o = "https://api.ferry.rsvp", c = "https://api.staging.ferry.rsvp", $ = "https://ask.ferry.rsvp", d = "https://ask.staging.ferry.rsvp", u = {
   production: {
     booking: `${o}/app/booking`,
     payments: `${o}/app/payments`,
@@ -161,7 +166,7 @@ const r = "19.2.8", e = "https://esm.sh", s = "https://assets.ferry.rsvp", i = `
     payments: `${c}/app/payments`,
     discovery: `${c}/app/discovery`,
     catalog: `${c}/v1`,
-    ask: u
+    ask: d
   }
 };
 function y(a) {
@@ -169,14 +174,14 @@ function y(a) {
 }
 function f(a) {
   return Object.fromEntries(
-    Object.entries(d[a]).map(([p, m]) => [
+    Object.entries(u[a]).map(([p, m]) => [
       `import.meta.env.VITE_API_${p.toUpperCase()}`,
       JSON.stringify(m)
     ])
   );
 }
 export {
-  d as apiBaseUrls,
+  u as apiBaseUrls,
   f as apiDefines,
   x as createExternalMatcher,
   j as createImportMap,
