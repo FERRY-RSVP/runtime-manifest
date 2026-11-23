@@ -43,6 +43,11 @@ export const manifest = defineManifest({
     "@esm.sh/@hookform/resolvers/zod": `${ESM}/@hookform/resolvers@5.5.3/zod?deps=react@${REACT},react-hook-form@7.83.0`,
     "@esm.sh/@radix-ui/themes": `${ESM}/@radix-ui/themes@3.3.0?deps=react@${REACT},react-dom@${REACT}/client`,
     "@esm.sh/@radix-ui/react-icons": `${ESM}/@radix-ui/react-icons@1.3.2?deps=react@${REACT}`,
+    // React bindings for xstate. `deps` pins BOTH react and xstate: without the
+    // xstate pin esm.sh resolves its own copy, and two actor runtimes in one page
+    // means two machines and divergent state -- the same hazard the React
+    // singleton rule exists for. Keep this version in step with @esm.sh/xstate.
+    "@esm.sh/@xstate/react": `${ESM}/@xstate/react@6.1.0?deps=react@${REACT},xstate@5.33.4`,
 
     // --- esm.sh: standalone leaf libs (no react peer) ---
     "@esm.sh/luxon": `${ESM}/luxon@3.7.2`,
@@ -59,7 +64,7 @@ export const manifest = defineManifest({
     "@esm.sh/@capacitor/app": `${ESM}/@capacitor/app@8.1.1`,
     "@esm.sh/@capacitor/browser": `${ESM}/@capacitor/browser@8.0.4`,
     "@esm.sh/libphonenumber-js": `${ESM}/libphonenumber-js@1.13.9`,
-    "@esm.sh/xstate": `${ESM}/xstate@5.28.0`,
+    "@esm.sh/xstate": `${ESM}/xstate@5.33.4`,
     "@esm.sh/validator/lib/isEmail": `${ESM}/validator@13.15.35/lib/isEmail`,
     "@esm.sh/@chenglou/pretext": `${ESM}/@chenglou/pretext@0.0.3`,
     "@esm.sh/@openreplay/tracker": `${ESM}/@openreplay/tracker@18.1.0`,

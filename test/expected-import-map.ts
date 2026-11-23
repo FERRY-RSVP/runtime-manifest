@@ -41,8 +41,10 @@ export const expectedImportMap: Record<string, string> = {
     "https://esm.sh/@radix-ui/themes@3.3.0?deps=react@19.2.8,react-dom@19.2.8/client",
   "@esm.sh/@radix-ui/react-icons":
     "https://esm.sh/@radix-ui/react-icons@1.3.2?deps=react@19.2.8",
+  "@esm.sh/@xstate/react":
+    "https://esm.sh/@xstate/react@6.1.0?deps=react@19.2.8,xstate@5.33.4",
   "@esm.sh/libphonenumber-js": "https://esm.sh/libphonenumber-js@1.13.9",
-  "@esm.sh/xstate": "https://esm.sh/xstate@5.28.0",
+  "@esm.sh/xstate": "https://esm.sh/xstate@5.33.4",
   "@esm.sh/validator/lib/isEmail":
     "https://esm.sh/validator@13.15.35/lib/isEmail",
   "@esm.sh/@chenglou/pretext": "https://esm.sh/@chenglou/pretext@0.0.3",
