@@ -21,7 +21,7 @@ This architecture is unusual. These are the specific wrong assumptions:
 | Dependencies belong in this repo's `package.json` | Runtime deps are import-map owned, declared once in `runtime-manifest`. Only dev/build tooling is local. |
 | Deploy works the same everywhere | Split by shape. **Slices**: CI-only, no deploy script — pushing to `staging`/`main` is the trigger. **Workers**: have `npm run deploy` / `deploy:staging` (wrangler) and can also be deployed from a machine. |
 | Environments are `dev` / `staging` / `prod` | The manifest defines `production` and `preview` only. There is no `development`. |
-| `http://localhost:3000` | `https://ferryrsvp.local:<port>` — custom host, HTTPS, unique port per slice. |
+| `http://localhost:3000`, or a dev server in this repo | None here. Run `npm run dev <repo>` in the ferry-rsvp-platform workspace: it serves this repo from source inside web-main's shell at `https://local.staging.ferry.rsvp:3000`, composing everything else from staging. |
 | A route table maps URLs to features | Convention: `slicePrefix: "web-"` means `/booking` resolves to `@ferryrsvp/web-booking/<entry>`. |
 | One worker per repository | `ferry-intelligence` holds five workers; `ferry-authentication` holds four packages. |
 | Slices import each other via `package.json` | Slices never depend on each other that way. They resolve by specifier at runtime. |
@@ -37,8 +37,9 @@ This architecture is unusual. These are the specific wrong assumptions:
 4. **Slices deploy CI-only** — no slice has a deploy script, and pushing to `staging` or `main`
    is the trigger. **Workers differ**: they carry `npm run deploy` / `deploy:staging` (wrangler)
    and can be deployed from a machine as well as by CI on push.
-5. **Dev servers bind `ferryrsvp.local` over HTTPS**, one unique port each. Never
-   `localhost`. Requires `127.0.0.1 ferryrsvp.local` in `/etc/hosts`.
+5. **Local pages run on `https://local.staging.ferry.rsvp:3000`**, the workspace dev
+   server's origin, never `localhost` or a per-repo port. Requires
+   `127.0.0.1 local.staging.ferry.rsvp` in `/etc/hosts` and `npm run setup:tls` there.
 6. **Worker CORS allowlists are exact-match, never wildcards.**
 
 ## This repository
